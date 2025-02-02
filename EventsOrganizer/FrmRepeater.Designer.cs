@@ -59,7 +59,7 @@
             buttonAdd.Name = "buttonAdd";
             buttonAdd.Size = new Size(388, 39);
             buttonAdd.TabIndex = 1;
-            buttonAdd.Text = "Д О Б А В И";
+            buttonAdd.Text = "A D D";
             buttonAdd.UseVisualStyleBackColor = true;
             buttonAdd.Click += buttonAdd_Click;
             // 
@@ -95,36 +95,36 @@
             label1.AutoSize = true;
             label1.Location = new Point(112, 38);
             label1.Name = "label1";
-            label1.Size = new Size(47, 15);
+            label1.Size = new Size(29, 15);
             label1.TabIndex = 5;
-            label1.Text = "Години";
+            label1.Text = "Year";
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Location = new Point(197, 38);
             label2.Name = "label2";
-            label2.Size = new Size(50, 15);
+            label2.Size = new Size(43, 15);
             label2.TabIndex = 6;
-            label2.Text = "Месеци";
+            label2.Text = "Month";
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Location = new Point(277, 38);
             label3.Name = "label3";
-            label3.Size = new Size(29, 15);
+            label3.Size = new Size(27, 15);
             label3.TabIndex = 7;
-            label3.Text = "Дни";
+            label3.Text = "Day";
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Location = new Point(356, 38);
             label4.Name = "label4";
-            label4.Size = new Size(46, 15);
+            label4.Size = new Size(34, 15);
             label4.TabIndex = 8;
-            label4.Text = "Часове";
+            label4.Text = "Hour";
             // 
             // comboBoxMinutes
             // 
@@ -140,9 +140,9 @@
             label5.AutoSize = true;
             label5.Location = new Point(436, 38);
             label5.Name = "label5";
-            label5.Size = new Size(50, 15);
+            label5.Size = new Size(45, 15);
             label5.TabIndex = 10;
-            label5.Text = "Минути";
+            label5.Text = "Minute";
             // 
             // comboBoxIds
             // 
@@ -168,7 +168,7 @@
             buttonClear.Name = "buttonClear";
             buttonClear.Size = new Size(115, 28);
             buttonClear.TabIndex = 13;
-            buttonClear.Text = "Изчисти полетата";
+            buttonClear.Text = "Clear";
             buttonClear.UseVisualStyleBackColor = true;
             buttonClear.Click += buttonClear_Click;
             // 
@@ -193,7 +193,7 @@
             Controls.Add(comboBoxYears);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "FrmRepeater";
-            Text = "Повторител";
+            Text = "Repeater";
             Load += FrmRepeater_Load;
             ResumeLayout(false);
             PerformLayout();

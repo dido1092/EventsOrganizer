@@ -24,7 +24,7 @@ namespace EventsOrganizer.Data.Models
         public DateTime remindDateTime { get; set; }
 
         [Required] 
-        public string RemainingDays { get; set; }
+        public int RemainingDays { get; set; }
 
         [Required]
         public string State { get; set; }

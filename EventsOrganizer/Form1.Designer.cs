@@ -75,7 +75,7 @@
             buttonAddEvent.Name = "buttonAddEvent";
             buttonAddEvent.Size = new Size(115, 34);
             buttonAddEvent.TabIndex = 1;
-            buttonAddEvent.Text = "Добави събитие";
+            buttonAddEvent.Text = "Add Event";
             buttonAddEvent.UseVisualStyleBackColor = true;
             buttonAddEvent.Click += buttonAddEvent_Click;
             // 
@@ -146,9 +146,9 @@
             labelEventNums.AutoSize = true;
             labelEventNums.Location = new Point(45, 570);
             labelEventNums.Name = "labelEventNums";
-            labelEventNums.Size = new Size(74, 15);
+            labelEventNums.Size = new Size(44, 15);
             labelEventNums.TabIndex = 3;
-            labelEventNums.Text = "Събития бр:";
+            labelEventNums.Text = "Events:";
             labelEventNums.Click += labelEventNums_Click;
             // 
             // buttonRefresh
@@ -157,7 +157,7 @@
             buttonRefresh.Name = "buttonRefresh";
             buttonRefresh.Size = new Size(118, 32);
             buttonRefresh.TabIndex = 4;
-            buttonRefresh.Text = "ОПРЕСНИ";
+            buttonRefresh.Text = "REFRESH";
             buttonRefresh.UseVisualStyleBackColor = true;
             buttonRefresh.Click += buttonRefresh_Click;
             // 
@@ -167,7 +167,7 @@
             buttonDeleteEvent.Name = "buttonDeleteEvent";
             buttonDeleteEvent.Size = new Size(118, 32);
             buttonDeleteEvent.TabIndex = 4;
-            buttonDeleteEvent.Text = "ИЗТРИЙ";
+            buttonDeleteEvent.Text = "CLEAR";
             buttonDeleteEvent.UseVisualStyleBackColor = true;
             buttonDeleteEvent.Click += buttonDeleteEvent_Click;
             // 
@@ -177,7 +177,7 @@
             buttonUpdateEvent.Name = "buttonUpdateEvent";
             buttonUpdateEvent.Size = new Size(118, 32);
             buttonUpdateEvent.TabIndex = 4;
-            buttonUpdateEvent.Text = "АКТУАЛИЗИРАЙ";
+            buttonUpdateEvent.Text = "UPDATE";
             buttonUpdateEvent.UseVisualStyleBackColor = true;
             buttonUpdateEvent.Click += buttonUpdateEvent_Click;
             // 
@@ -232,9 +232,9 @@
             labelTime.AutoSize = true;
             labelTime.Location = new Point(45, 604);
             labelTime.Name = "labelTime";
-            labelTime.Size = new Size(45, 15);
+            labelTime.Size = new Size(36, 15);
             labelTime.TabIndex = 7;
-            labelTime.Text = "Време:";
+            labelTime.Text = "Time:";
             // 
             // labelInfo
             // 
@@ -242,9 +242,9 @@
             labelInfo.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 204);
             labelInfo.Location = new Point(385, 40);
             labelInfo.Name = "labelInfo";
-            labelInfo.Size = new Size(82, 25);
+            labelInfo.Size = new Size(67, 25);
             labelInfo.TabIndex = 8;
-            labelInfo.Text = "ИНФО: ";
+            labelInfo.Text = "INFO: ";
             labelInfo.Click += labelInfo_Click;
             // 
             // pictureBoxSound
@@ -270,7 +270,7 @@
             buttonRepeat.Name = "buttonRepeat";
             buttonRepeat.Size = new Size(79, 30);
             buttonRepeat.TabIndex = 10;
-            buttonRepeat.Text = "Повтори";
+            buttonRepeat.Text = "Repeat";
             buttonRepeat.UseVisualStyleBackColor = true;
             buttonRepeat.Click += buttonRepeat_Click;
             // 

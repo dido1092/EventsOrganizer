@@ -75,7 +75,7 @@ namespace EventsOrganizer
                         eventName = getName,
                         enable = false,
                         dateTimeNow = DateTime.Now,
-                        RemainingDays = "",
+                        RemainingDays = 0,
                         State = ""
                     };
                     context.Events!.Add(@event);
@@ -119,7 +119,7 @@ namespace EventsOrganizer
         }
         private void TableEvents(string connectionString)
         {
-            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Events", connectionString);
+            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Events Order By RemainingDays", connectionString);
             DataSet ds = new DataSet();
             da.Fill(ds, "Events");
             dataGridViewEvents.DataSource = ds.Tables["Events"]?.DefaultView;
@@ -139,7 +139,8 @@ namespace EventsOrganizer
             conn.Open();
             int recordCount = (int)cmd.ExecuteScalar();
             conn.Close();
-            labelEventNums.Text = $"Събития бр: {recordCount}";
+            //labelEventNums.Text = $"Събития бр: {recordCount}";
+            labelEventNums.Text = $"Events: {recordCount}";
         }
 
         private void buttonDeleteEvent_Click(object sender, EventArgs e)
@@ -673,7 +674,8 @@ namespace EventsOrganizer
         }
         private void pardeepTimer()
         {
-            labelTime.Text = $"Време: {DateTime.Now.ToString()}";
+            //labelTime.Text = $"Време: {DateTime.Now.ToString()}";
+            labelTime.Text = $"Time: {DateTime.Now.ToString()}";
 
             if (buttonOnOff.Text == "ON")
             {
@@ -695,7 +697,8 @@ namespace EventsOrganizer
 
                     if (totalMiliseconds > 0)
                     {
-                        labelInfo.Text = $"ИНФО:";
+                        //labelInfo.Text = $"ИНФО:";
+                        labelInfo.Text = $"INFO:";
                         labelInfo.ForeColor = Color.Black;
                     }
                     if (remindDateTime == currentDateTime)
