@@ -210,11 +210,6 @@ namespace EventsOrganizer
             frmRepeatWord.Show();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Execute();
-        }
-
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
@@ -224,6 +219,11 @@ namespace EventsOrganizer
         {
             SpeechSynthesizer speech = new SpeechSynthesizer();
             speech.SpeakAsync(word);
+        }
+
+        private void buttonAnotherWord_Click(object sender, EventArgs e)
+        {
+            Execute();
         }
     }
 }

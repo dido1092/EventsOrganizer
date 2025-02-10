@@ -27,6 +27,8 @@ namespace EventsOrganizer
                 SetMinutes();
 
                 MessageBox.Show("Done!");
+
+                this.Close();
             }
             else
             {

@@ -56,6 +56,7 @@
             pictureBoxSound = new PictureBox();
             timerUpdateDateTimeNow = new System.Windows.Forms.Timer(components);
             buttonRepeat = new Button();
+            buttonLearnEnglish = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewEvents).BeginInit();
             ((System.ComponentModel.ISupportInitialize)eventBindingSource).BeginInit();
             contextMenuStrip1.SuspendLayout();
@@ -268,17 +269,28 @@
             // 
             buttonRepeat.Location = new Point(941, 368);
             buttonRepeat.Name = "buttonRepeat";
-            buttonRepeat.Size = new Size(79, 30);
+            buttonRepeat.Size = new Size(90, 30);
             buttonRepeat.TabIndex = 10;
             buttonRepeat.Text = "Repeat";
             buttonRepeat.UseVisualStyleBackColor = true;
             buttonRepeat.Click += buttonRepeat_Click;
+            // 
+            // buttonLearnEnglish
+            // 
+            buttonLearnEnglish.Location = new Point(941, 437);
+            buttonLearnEnglish.Name = "buttonLearnEnglish";
+            buttonLearnEnglish.Size = new Size(90, 30);
+            buttonLearnEnglish.TabIndex = 11;
+            buttonLearnEnglish.Text = "Learn English";
+            buttonLearnEnglish.UseVisualStyleBackColor = true;
+            buttonLearnEnglish.Click += buttonLearnEnglish_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1097, 640);
+            Controls.Add(buttonLearnEnglish);
             Controls.Add(buttonRepeat);
             Controls.Add(pictureBoxSound);
             Controls.Add(labelInfo);
@@ -337,5 +349,6 @@
         private DataGridViewTextBoxColumn State;
         private System.Windows.Forms.Timer timerUpdateDateTimeNow;
         private Button buttonRepeat;
+        private Button buttonLearnEnglish;
     }
 }

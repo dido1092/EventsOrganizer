@@ -38,8 +38,8 @@
             toolStripButtonResult = new ToolStripButton();
             toolStripButtonRepeat = new ToolStripButton();
             timerMinutes = new System.Windows.Forms.Timer(components);
-            button1 = new Button();
             pictureBox1 = new PictureBox();
+            buttonAnotherWord = new Button();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -115,16 +115,6 @@
             timerMinutes.Interval = 60000;
             timerMinutes.Tick += timerMinutes_Tick;
             // 
-            // button1
-            // 
-            button1.Location = new Point(31, 155);
-            button1.Name = "button1";
-            button1.Size = new Size(93, 23);
-            button1.TabIndex = 4;
-            button1.Text = "Another word";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
@@ -135,13 +125,23 @@
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
             // 
+            // buttonAnotherWord
+            // 
+            buttonAnotherWord.Location = new Point(31, 153);
+            buttonAnotherWord.Name = "buttonAnotherWord";
+            buttonAnotherWord.Size = new Size(96, 23);
+            buttonAnotherWord.TabIndex = 6;
+            buttonAnotherWord.Text = "Another word";
+            buttonAnotherWord.UseVisualStyleBackColor = true;
+            buttonAnotherWord.Click += buttonAnotherWord_Click;
+            // 
             // FrmEnglishWord
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(535, 255);
+            Controls.Add(buttonAnotherWord);
             Controls.Add(pictureBox1);
-            Controls.Add(button1);
             Controls.Add(toolStrip1);
             Controls.Add(buttonOK);
             Controls.Add(textBoxWord);
@@ -168,7 +168,7 @@
         private ToolStripButton toolStripButtonResult;
         private ToolStripButton toolStripButtonRepeat;
         public System.Windows.Forms.Timer timerMinutes;
-        private Button button1;
         private PictureBox pictureBox1;
+        private Button buttonAnotherWord;
     }
 }

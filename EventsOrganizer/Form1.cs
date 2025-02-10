@@ -868,5 +868,11 @@ namespace EventsOrganizer
             frmRepeater.TopMost = true;
             frmRepeater.Show();
         }
+
+        private void buttonLearnEnglish_Click(object sender, EventArgs e)
+        {
+            FrmEnglishWord frmEnglishWord = new FrmEnglishWord();
+            frmEnglishWord.Show();
+        }
     }
 }
