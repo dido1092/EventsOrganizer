@@ -637,6 +637,9 @@ namespace EventsOrganizer
 
         private void Form1_Resize(object sender, EventArgs e)
         {
+            FrmEnglishWord frmEnglishWord = new FrmEnglishWord();
+            frmEnglishWord.ShowDialog();
+
             if (FormWindowState.Minimized == this.WindowState)
             {
                 MinimzedTray();

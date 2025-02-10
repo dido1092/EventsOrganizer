@@ -16,6 +16,8 @@ namespace EventsOrganizer.Data
 
         public DbSet<Event>? Events { get; set; }
         public DbSet<ButtonOnOff>? ButtonOnOffs { get; set; }
+        public DbSet<EnBgWord>? EnBgWords { get; set; }
+        public DbSet<Result>? Results { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
