@@ -1,20 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EventsOrganizer.Data;
+using EventsOrganizer.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Windows.Forms;
 
 namespace EventsOrganizer
 {
     public partial class FrmRepeatWord : Form
     {
+        EventsOrganizerContext context = new EventsOrganizerContext();
+
+        Label label;
+
         private int minutes = 0;
-        public FrmRepeatWord()
+
+        public FrmRepeatWord(Label label)
         {
+            this.label = label;
+
             InitializeComponent();
         }
 
@@ -28,7 +30,13 @@ namespace EventsOrganizer
 
                 MessageBox.Show("Done!");
 
-                this.Close();
+                if (minutes != 0)
+                {
+                    FrmRepeater frmRepeater = new FrmRepeater();
+                    frmRepeater.Close();
+                    this.Close();
+                }
+
             }
             else
             {
@@ -37,15 +45,61 @@ namespace EventsOrganizer
         }
         public void SetMinutes()
         {
-            FrmEnglishWord frmEnglishWord = new FrmEnglishWord();
-            frmEnglishWord.getMin = this.minutes;
+            context.Database.ExecuteSqlRaw("TRUNCATE TABLE [RepeatWords]");
+            context.SaveChanges(true);
 
-            if (minutes > 0)
+            string[] arrWords = label.Text.Split('-');
+
+            DateTime dateTimeNow = DateTime.Now;
+
+            if (arrWords.Length > 1)
             {
-                frmEnglishWord.timerMinutes.Enabled = true;
+                if (checkBoxRepeat.Checked)
+                {
+                    RepeatWord repeatWords = new RepeatWord()
+                    {
+                        EnWord = arrWords[0].Trim().ToUpper(),
+                        BgWord = arrWords[1].Trim().ToUpper(),
+                        Minutes = minutes,
+                        Repeat = true,
+                        DateTime = dateTimeNow
+                    };
 
-                frmEnglishWord.timerMinutes.Interval = minutes * 60000;
+                    context.Add(repeatWords);
+                    context.SaveChanges();
+                }
             }
+        }
+
+        private void checkBoxRepeat_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!checkBoxRepeat.Checked)
+            {
+                comboBoxMin.Text = $"{0.ToString()}";
+            }
+        }
+
+        private void FrmRepeatWord_Load(object sender, EventArgs e)
+        {
+            bool rStatus = RepeatStatus();
+
+            if (rStatus)
+            {
+                checkBoxRepeat.Checked = true;
+            }
+            else
+            {
+                checkBoxRepeat.Checked = false;
+            }
+
+            this.TopMost = true;
+        }
+        private bool RepeatStatus()
+        {
+            var repeatStatus = context.RepeatWords!.Select(r => r.Repeat).FirstOrDefault();
+
+            return repeatStatus;
         }
     }
 }
+

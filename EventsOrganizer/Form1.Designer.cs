@@ -57,6 +57,7 @@
             timerUpdateDateTimeNow = new System.Windows.Forms.Timer(components);
             buttonRepeat = new Button();
             buttonLearnEnglish = new Button();
+            timerRepeatWord = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)dataGridViewEvents).BeginInit();
             ((System.ComponentModel.ISupportInitialize)eventBindingSource).BeginInit();
             contextMenuStrip1.SuspendLayout();
@@ -285,6 +286,12 @@
             buttonLearnEnglish.UseVisualStyleBackColor = true;
             buttonLearnEnglish.Click += buttonLearnEnglish_Click;
             // 
+            // timerRepeatWord
+            // 
+            timerRepeatWord.Enabled = true;
+            timerRepeatWord.Interval = 1000;
+            timerRepeatWord.Tick += timerRepeatWord_Tick;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -350,5 +357,6 @@
         private System.Windows.Forms.Timer timerUpdateDateTimeNow;
         private Button buttonRepeat;
         private Button buttonLearnEnglish;
+        private System.Windows.Forms.Timer timerRepeatWord;
     }
 }

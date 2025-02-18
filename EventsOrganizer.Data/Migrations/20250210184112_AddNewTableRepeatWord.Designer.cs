@@ -4,6 +4,7 @@ using EventsOrganizer.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventsOrganizer.Data.Migrations
 {
     [DbContext(typeof(EventsOrganizerContext))]
-    partial class EventsOrganizerContextModelSnapshot : ModelSnapshot
+    [Migration("20250210184112_AddNewTableRepeatWord")]
+    partial class AddNewTableRepeatWord
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

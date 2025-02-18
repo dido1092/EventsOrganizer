@@ -1,5 +1,6 @@
 ﻿using EventsOrganizer.Data;
 using EventsOrganizer.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Speech.Synthesis;
 
@@ -14,9 +15,11 @@ namespace EventsOrganizer
         private string bgWord = string.Empty;
 
         public int getMin = 0;
+        private DateTime dt;
 
-        public FrmEnglishWord()
+        public FrmEnglishWord(DateTime dateTime)
         {
+            this.dt = dateTime;
             InitializeComponent();
         }
 
@@ -101,12 +104,14 @@ namespace EventsOrganizer
         {
             Execute();
         }
-        private void Execute()
+        public void Execute()
         {
-            if (timerMinutes.Enabled == false)
+            var repeat = context.RepeatWords!.Select(r => r.Repeat).FirstOrDefault();
+
+            if (repeat == false)
             {
                 Random rndWord = new Random();
-                int getRndWordId = rndWord.Next(2, 10001);//Words Id's range
+                int getRndWordId = rndWord.Next(2, 10000);//Words Id's range in DB
 
                 var getWords = context.EnBgWords!.Select(w => new { w.Id, w.EnWord, w.BgWord }).Where(w => w.Id == getRndWordId).FirstOrDefault();
 
@@ -120,29 +125,33 @@ namespace EventsOrganizer
             }
             else
             {
-                var getWords = context.Results!.Select(w => new { w.Id, w.EnWord, w.BgWord }).OrderByDescending(w => w.Id).FirstOrDefault();
+                var getWords = context.RepeatWords!.Select(w => new { w.Id, w.EnWord, w.BgWord, w.Minutes, w.Repeat }).OrderByDescending(w => w.Id).FirstOrDefault();
 
                 if (getWords != null)
                 {
-                    enWord = getWords!.EnWord;
-                    bgWord = getWords!.BgWord;
+                    enWord = getWords.EnWord.Trim();
+                    bgWord = getWords.BgWord.Trim();
 
                     labelWord.Text = $"{enWord} - {bgWord}";
                 }
+                labelInfo.Text = $"Repeating the '{getWords!.EnWord} - {getWords!.BgWord}' every {getWords!.Minutes} min. \nLast Repeated in {dt}";
             }
+
+            //this.Show();
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
+            string[] arrFromLabelWord = labelWord.Text.Split('-');
             string[] getWords = textBoxWord.Text.Split('-');
-
-            string getEnWord = getWords[0].Trim().ToUpper();
-            string getBgWord = getWords[1].Trim().ToUpper();
 
             if (getWords.Length > 0)
             {
-                if (timerMinutes.Enabled == false)
-                {
+                string getEnWord = getWords[0].Trim().ToUpper();
+                string getBgWord = getWords[1].Trim().ToUpper();
+
+                //if (timerMinutes.Enabled == false)
+                //{
                     DateTime dtNow = DateTime.Now;
 
                     if (getEnWord == enWord.Trim().ToUpper() && getBgWord == bgWord.Trim().ToUpper())//Check if writing word is correct and equal to enWord
@@ -177,20 +186,22 @@ namespace EventsOrganizer
                     }
                     context.SaveChanges();
                 }
-                else
-                {
-                    if (getEnWord.Trim().ToUpper() == enWord.Trim().ToUpper() && getBgWord.Trim().ToUpper() == bgWord.Trim().ToUpper())//Check if writing word is correct and equal to enWord
-                    {
-                        MessageBox.Show("Correct");
+                //else
+                //{
+                //    //var getFromRepeatWord = context.RepeatWords!.Select(w => new { w.EnWord, w.BgWord}).FirstOrDefault();
 
-                        this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("InCorrect");
-                    }
-                }
-            }
+                //    if (getEnWord.Trim().ToUpper() == arrFromLabelWord[0].Trim().ToUpper() && getBgWord.Trim().ToUpper() == arrFromLabelWord[1].Trim().ToUpper())//Check if writing word is correct and equal to enWord
+                //    {
+                //        MessageBox.Show("Correct");
+
+                //        this.Close();
+                //    }
+                //    else
+                //    {
+                //        MessageBox.Show("InCorrect");
+                //    }
+                //}
+            //}
         }
 
         private void toolStripButtonResult_Click(object sender, EventArgs e)
@@ -201,12 +212,12 @@ namespace EventsOrganizer
 
         public void timerMinutes_Tick(object sender, EventArgs e)
         {
-            this.Show();
+            Execute();
         }
 
         private void toolStripButtonRepeat_Click(object sender, EventArgs e)
         {
-            FrmRepeatWord frmRepeatWord = new FrmRepeatWord();
+            FrmRepeatWord frmRepeatWord = new FrmRepeatWord(labelWord);
             frmRepeatWord.Show();
         }
 
@@ -224,6 +235,16 @@ namespace EventsOrganizer
         private void buttonAnotherWord_Click(object sender, EventArgs e)
         {
             Execute();
+        }
+
+        private void checkBoxRepeat_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        public void labelWord_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

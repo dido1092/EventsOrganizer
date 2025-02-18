@@ -40,6 +40,7 @@
             timerMinutes = new System.Windows.Forms.Timer(components);
             pictureBox1 = new PictureBox();
             buttonAnotherWord = new Button();
+            labelInfo = new Label();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -53,6 +54,7 @@
             labelWord.Size = new Size(79, 30);
             labelWord.TabIndex = 0;
             labelWord.Text = "WORD";
+            labelWord.Click += labelWord_Click;
             // 
             // textBoxWord
             // 
@@ -135,11 +137,23 @@
             buttonAnotherWord.UseVisualStyleBackColor = true;
             buttonAnotherWord.Click += buttonAnotherWord_Click;
             // 
+            // labelInfo
+            // 
+            labelInfo.AutoSize = true;
+            labelInfo.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            labelInfo.ForeColor = SystemColors.ActiveCaptionText;
+            labelInfo.Location = new Point(31, 212);
+            labelInfo.Name = "labelInfo";
+            labelInfo.Size = new Size(30, 15);
+            labelInfo.TabIndex = 7;
+            labelInfo.Text = "Info";
+            // 
             // FrmEnglishWord
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(535, 255);
+            Controls.Add(labelInfo);
             Controls.Add(buttonAnotherWord);
             Controls.Add(pictureBox1);
             Controls.Add(toolStrip1);
@@ -160,7 +174,7 @@
 
         #endregion
 
-        private Label labelWord;
+        public Label labelWord;
         private TextBox textBoxWord;
         private Button buttonOK;
         private ToolStrip toolStrip1;
@@ -170,5 +184,6 @@
         public System.Windows.Forms.Timer timerMinutes;
         private PictureBox pictureBox1;
         private Button buttonAnotherWord;
+        private Label labelInfo;
     }
 }

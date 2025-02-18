@@ -31,6 +31,7 @@
             comboBoxMin = new ComboBox();
             label1 = new Label();
             buttonAddMin = new Button();
+            checkBoxRepeat = new CheckBox();
             SuspendLayout();
             // 
             // comboBoxMin
@@ -61,11 +62,23 @@
             buttonAddMin.UseVisualStyleBackColor = true;
             buttonAddMin.Click += buttonAddMin_Click;
             // 
+            // checkBoxRepeat
+            // 
+            checkBoxRepeat.AutoSize = true;
+            checkBoxRepeat.Location = new Point(45, 92);
+            checkBoxRepeat.Name = "checkBoxRepeat";
+            checkBoxRepeat.Size = new Size(62, 19);
+            checkBoxRepeat.TabIndex = 3;
+            checkBoxRepeat.Text = "Repeat";
+            checkBoxRepeat.UseVisualStyleBackColor = true;
+            checkBoxRepeat.CheckedChanged += checkBoxRepeat_CheckedChanged;
+            // 
             // FrmRepeatWord
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(288, 150);
+            Controls.Add(checkBoxRepeat);
             Controls.Add(buttonAddMin);
             Controls.Add(label1);
             Controls.Add(comboBoxMin);
@@ -73,6 +86,7 @@
             MaximizeBox = false;
             Name = "FrmRepeatWord";
             Text = "FrmRepeatWord";
+            Load += FrmRepeatWord_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -82,5 +96,6 @@
         private ComboBox comboBoxMin;
         private Label label1;
         private Button buttonAddMin;
+        private CheckBox checkBoxRepeat;
     }
 }

@@ -23,6 +23,7 @@ namespace EventsOrganizer
         private string getEventNameNow = string.Empty;
         private string lastRemindDateTime = string.Empty;
         private string? buttonOnOffState = string.Empty;
+        private DateTime lastDateTimeRepeatWord;
         //Form1 form;
         //int interval = 0;
         //FrmRemindInterval frmRemindInterval;// = new FrmRemindInterval(interval);
@@ -637,7 +638,7 @@ namespace EventsOrganizer
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-            FrmEnglishWord frmEnglishWord = new FrmEnglishWord();
+            FrmEnglishWord frmEnglishWord = new FrmEnglishWord(lastDateTimeRepeatWord);
             frmEnglishWord.ShowDialog();
 
             if (FormWindowState.Minimized == this.WindowState)
@@ -871,8 +872,34 @@ namespace EventsOrganizer
 
         private void buttonLearnEnglish_Click(object sender, EventArgs e)
         {
-            FrmEnglishWord frmEnglishWord = new FrmEnglishWord();
+            FrmEnglishWord frmEnglishWord = new FrmEnglishWord(lastDateTimeRepeatWord);
             frmEnglishWord.Show();
+        }
+
+        private void timerRepeatWord_Tick(object sender, EventArgs e)
+        {         
+            var getInterval = context.RepeatWords!.Select(i => i.Minutes).FirstOrDefault();
+            
+            DateTime now = DateTime.Now;
+
+            timerRepeatWord.Interval = 1000;
+
+            if (getInterval != 0)
+            {
+               FrmEnglishWord frmEnglishWord = new FrmEnglishWord(lastDateTimeRepeatWord);
+                //frmEnglishWord.timerMinutes.Enabled = true;
+
+                timerRepeatWord.Interval = getInterval * 60000;
+
+                frmEnglishWord.Execute();
+                frmEnglishWord.Show();
+
+                GetLastDateTimeRepeating();
+            }
+        }
+        public DateTime GetLastDateTimeRepeating()
+        { 
+           return lastDateTimeRepeatWord = DateTime.Now;
         }
     }
 }
