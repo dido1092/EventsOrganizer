@@ -3,6 +3,7 @@ using EventsOrganizer.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Speech.Synthesis;
+using System.Text.RegularExpressions;
 
 namespace EventsOrganizer
 {
@@ -17,6 +18,8 @@ namespace EventsOrganizer
         public int getMin = 0;
         private DateTime dt;
 
+        private int getRndWordId = 0;
+
         public FrmEnglishWord(DateTime dateTime)
         {
             this.dt = dateTime;
@@ -25,81 +28,9 @@ namespace EventsOrganizer
 
         private void toolStripButtonInsert_Click(object sender, EventArgs e)
         {
-            OpenFile();
-            InsertEnBgWords();
+            FrmInsert frmInsert = new FrmInsert();
+            frmInsert.Show();
         }
-        private void OpenFile()
-        {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog
-            {
-                InitialDirectory = @"C:\",
-                Title = "Browse Text Files",
-
-                CheckFileExists = true,
-                CheckPathExists = true,
-
-                DefaultExt = "txt",
-                Filter = "txt files (*.txt)|*.txt",
-                FilterIndex = 2,
-                RestoreDirectory = true,
-
-                ReadOnlyChecked = true,
-                ShowReadOnly = true
-            };
-
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                path = openFileDialog1.FileName;
-            }
-        }
-        private void InsertEnBgWords()
-        {
-            int countLines = 0;
-            string enWord = string.Empty;
-            string bgWord = string.Empty;
-
-            HashSet<EnBgWord> hsQA = new HashSet<EnBgWord>();
-
-            DateTime dateTimeNow = DateTime.Now;
-
-            string[] lines = System.IO.File.ReadAllLines(path);
-
-            for (int i = 0; i < lines.Length; i++)
-            {
-                string getLine = lines[i];
-
-                string[] arrWords = getLine.Split('-');
-
-                if (getLine == "")
-                {
-                    continue;
-                }
-
-                if (getLine != "")
-                {
-                    enWord = arrWords[0].ToUpper();
-
-                    bgWord = arrWords[1].ToUpper();
-
-                    if (enWord != string.Empty && bgWord != string.Empty)
-                    {
-                        EnBgWord enBgWord = new EnBgWord()
-                        {
-                            EnWord = enWord,
-                            BgWord = bgWord,
-                            DateTime = dateTimeNow
-                        };
-                        context.EnBgWords!.Add(enBgWord);
-                        context.SaveChanges();
-
-                        bgWord = string.Empty;
-                        enWord = string.Empty;
-                    }
-                }
-            }
-            MessageBox.Show("Import Done!");
-        }
-
         private void FrmEnglishWord_Load(object sender, EventArgs e)
         {
             Execute();
@@ -108,10 +39,14 @@ namespace EventsOrganizer
         {
             var repeat = context.RepeatWords!.Select(r => r.Repeat).FirstOrDefault();
 
+            FrmRepeatWord frmRepeatWord = new FrmRepeatWord(labelWord);
+
+            bool isCheckBoxBgChecked = frmRepeatWord.GetCheckBoxChecked();
+
             if (repeat == false)
             {
                 Random rndWord = new Random();
-                int getRndWordId = rndWord.Next(2, 10000);//Words Id's range in DB
+                getRndWordId = rndWord.Next(2, 10000);//Words Id's range in DB
 
                 var getWords = context.EnBgWords!.Select(w => new { w.Id, w.EnWord, w.BgWord }).Where(w => w.Id == getRndWordId).FirstOrDefault();
 
@@ -132,9 +67,16 @@ namespace EventsOrganizer
                     enWord = getWords.EnWord.Trim();
                     bgWord = getWords.BgWord.Trim();
 
-                    labelWord.Text = $"{enWord} - {bgWord}";
+                    if (isCheckBoxBgChecked)
+                    {
+                        labelWord.Text = $"{bgWord}";
+                    }
+                    else
+                    {
+                        labelWord.Text = $"{enWord}";
+                    }
                 }
-                labelInfo.Text = $"Repeating the '{getWords!.EnWord} - {getWords!.BgWord}' every {getWords!.Minutes} min. \nLast Repeated in {dt}";
+                labelInfo.Text = $"Repeating on every {getWords!.Minutes} min. \nLast Repeated in {dt}";
             }
 
             //this.Show();
@@ -142,66 +84,59 @@ namespace EventsOrganizer
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            string[] arrFromLabelWord = labelWord.Text.Split('-');
-            string[] getWords = textBoxWord.Text.Split('-');
+            var getCheckBoxChecked = context.RepeatWords!.Select(c => new { c.ShowOnBg, c.ShowOnEng }).FirstOrDefault();
 
-            if (getWords.Length > 0)
+            string getEnWord = string.Empty;
+            string getBgWord = string.Empty;
+
+            if (getCheckBoxChecked != null)
             {
-                string getEnWord = getWords[0].Trim().ToUpper();
-                string getBgWord = getWords[1].Trim().ToUpper();
-
-                //if (timerMinutes.Enabled == false)
-                //{
-                    DateTime dtNow = DateTime.Now;
-
-                    if (getEnWord == enWord.Trim().ToUpper() && getBgWord == bgWord.Trim().ToUpper())//Check if writing word is correct and equal to enWord
-                    {
-                        Result result = new Result()
-                        {
-                            EnWord = getEnWord,
-                            BgWord = getBgWord,
-                            IsCorrect = true,
-                            DateTime = dtNow
-                        };
-                        context.Add(result);
-
-                        textBoxWord.Text = string.Empty;
-
-                        MessageBox.Show("Correct!");
-
-                        this.Close();
-                    }
-                    else
-                    {
-                        Result result = new Result()
-                        {
-                            EnWord = getEnWord,
-                            BgWord = getBgWord,
-                            IsCorrect = false,
-                            DateTime = dtNow
-                        };
-                        context.Add(result);
-
-                        MessageBox.Show("InCorrect!");
-                    }
-                    context.SaveChanges();
+                if (getCheckBoxChecked.ShowOnEng == true)
+                {
+                    getEnWord = labelWord.Text.Trim().ToUpper();
+                    getBgWord = textBoxWord.Text.Trim().ToUpper();
                 }
-                //else
-                //{
-                //    //var getFromRepeatWord = context.RepeatWords!.Select(w => new { w.EnWord, w.BgWord}).FirstOrDefault();
+                else if (getCheckBoxChecked.ShowOnBg == true)
+                {
+                    getBgWord = labelWord.Text.Trim().ToUpper();
+                    getEnWord = textBoxWord.Text.Trim().ToUpper();
+                }
+                string getWords = textBoxWord.Text;
 
-                //    if (getEnWord.Trim().ToUpper() == arrFromLabelWord[0].Trim().ToUpper() && getBgWord.Trim().ToUpper() == arrFromLabelWord[1].Trim().ToUpper())//Check if writing word is correct and equal to enWord
-                //    {
-                //        MessageBox.Show("Correct");
+                DateTime dtNow = DateTime.Now;
 
-                //        this.Close();
-                //    }
-                //    else
-                //    {
-                //        MessageBox.Show("InCorrect");
-                //    }
-                //}
-            //}
+                if (getEnWord == enWord.Trim().ToUpper() && getBgWord == bgWord.Trim().ToUpper())//Check if writing word is correct and equal to enWord
+                {
+                    Result result = new Result()
+                    {
+                        EnWord = getEnWord,
+                        BgWord = getBgWord,
+                        IsCorrect = true,
+                        DateTime = dtNow
+                    };
+                    context.Add(result);
+
+                    textBoxWord.Text = string.Empty;
+
+                    MessageBox.Show("Correct!");
+
+                    this.Close();
+                }
+                else
+                {
+                    Result result = new Result()
+                    {
+                        EnWord = getEnWord,
+                        BgWord = getBgWord,
+                        IsCorrect = false,
+                        DateTime = dtNow
+                    };
+                    context.Add(result);
+
+                    MessageBox.Show("InCorrect!");
+                }
+                context.SaveChanges();
+            }
         }
 
         private void toolStripButtonResult_Click(object sender, EventArgs e)
@@ -237,12 +172,61 @@ namespace EventsOrganizer
             Execute();
         }
 
-        private void checkBoxRepeat_CheckedChanged(object sender, EventArgs e)
+        public void labelWord_Click(object sender, EventArgs e)
         {
 
         }
 
-        public void labelWord_Click(object sender, EventArgs e)
+        private void buttonHint_Click(object sender, EventArgs e)
+        {
+            FrmRepeatWord frmRepeatWord = new FrmRepeatWord(labelWord);
+
+            bool isCheckBoxBgChecked = frmRepeatWord.GetCheckBoxChecked();
+
+            string getWordFromLabel = labelWord.Text.Trim();
+
+            string pattern = @"([А-Яа-я]+)";
+
+
+            string bgWord = string.Empty;
+            string enWord = string.Empty;
+
+            if (Regex.IsMatch(getWordFromLabel, pattern))
+            {
+                var getWord = context.EnBgWords!.Select(w => new { w.BgWord, w.EnWord }).Where(w => w.BgWord == getWordFromLabel.Trim()).FirstOrDefault();
+
+                if (getWord != null)
+                {
+                    enWord = getWord.EnWord.Trim();
+                }
+            }
+            else
+            {
+                var getWord = context.EnBgWords!.Select(w => new { w.BgWord, w.EnWord }).Where(w => w.EnWord == getWordFromLabel.Trim()).FirstOrDefault();
+
+                if (getWord != null)
+                {
+                    bgWord = getWord.BgWord.Trim();
+                }
+            }
+
+
+
+            //var getWords = context.EnBgWords!.Select(w => new { w.Id, w.EnWord, w.BgWord }).Where(w => w.Id == getRndWordId).FirstOrDefault();
+
+            var getCheckBox = context.RepeatWords!.Select(c => new { c.Id, c.ShowOnBg, c.ShowOnEng }).FirstOrDefault();
+
+            if (bgWord.Length > 0)
+            {
+                MessageBox.Show($"{bgWord}");
+            }
+            else if (enWord.Length > 0)
+            {
+                MessageBox.Show($"{enWord}");
+            }
+        }
+
+        private void labelInfo_Click(object sender, EventArgs e)
         {
 
         }

@@ -25,6 +25,10 @@ namespace EventsOrganizer.Data.Models
 
         public bool Repeat { get; set; }
 
+        public bool ShowOnEng { get; set; }
+
+        public bool ShowOnBg { get; set; }
+
         public DateTime DateTime { get; set; }
     }
 }

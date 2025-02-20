@@ -32,6 +32,8 @@
             label1 = new Label();
             buttonAddMin = new Button();
             checkBoxRepeat = new CheckBox();
+            checkBoxShowOnBg = new CheckBox();
+            checkBoxShowOnEn = new CheckBox();
             SuspendLayout();
             // 
             // comboBoxMin
@@ -54,7 +56,7 @@
             // 
             // buttonAddMin
             // 
-            buttonAddMin.Location = new Point(128, 43);
+            buttonAddMin.Location = new Point(215, 43);
             buttonAddMin.Name = "buttonAddMin";
             buttonAddMin.Size = new Size(75, 23);
             buttonAddMin.TabIndex = 2;
@@ -65,7 +67,7 @@
             // checkBoxRepeat
             // 
             checkBoxRepeat.AutoSize = true;
-            checkBoxRepeat.Location = new Point(45, 92);
+            checkBoxRepeat.Location = new Point(128, 48);
             checkBoxRepeat.Name = "checkBoxRepeat";
             checkBoxRepeat.Size = new Size(62, 19);
             checkBoxRepeat.TabIndex = 3;
@@ -73,11 +75,35 @@
             checkBoxRepeat.UseVisualStyleBackColor = true;
             checkBoxRepeat.CheckedChanged += checkBoxRepeat_CheckedChanged;
             // 
+            // checkBoxShowOnBg
+            // 
+            checkBoxShowOnBg.AutoSize = true;
+            checkBoxShowOnBg.Location = new Point(45, 94);
+            checkBoxShowOnBg.Name = "checkBoxShowOnBg";
+            checkBoxShowOnBg.Size = new Size(91, 19);
+            checkBoxShowOnBg.TabIndex = 4;
+            checkBoxShowOnBg.Text = "Show On Bg";
+            checkBoxShowOnBg.UseVisualStyleBackColor = true;
+            checkBoxShowOnBg.CheckedChanged += checkBoxShowOnBg_CheckedChanged;
+            // 
+            // checkBoxShowOnEn
+            // 
+            checkBoxShowOnEn.AutoSize = true;
+            checkBoxShowOnEn.Location = new Point(45, 128);
+            checkBoxShowOnEn.Name = "checkBoxShowOnEn";
+            checkBoxShowOnEn.Size = new Size(90, 19);
+            checkBoxShowOnEn.TabIndex = 5;
+            checkBoxShowOnEn.Text = "Show On En";
+            checkBoxShowOnEn.UseVisualStyleBackColor = true;
+            checkBoxShowOnEn.CheckedChanged += checkBoxShowOnEn_CheckedChanged;
+            // 
             // FrmRepeatWord
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(288, 150);
+            ClientSize = new Size(348, 183);
+            Controls.Add(checkBoxShowOnEn);
+            Controls.Add(checkBoxShowOnBg);
             Controls.Add(checkBoxRepeat);
             Controls.Add(buttonAddMin);
             Controls.Add(label1);
@@ -97,5 +123,7 @@
         private Label label1;
         private Button buttonAddMin;
         private CheckBox checkBoxRepeat;
+        private CheckBox checkBoxShowOnBg;
+        private CheckBox checkBoxShowOnEn;
     }
 }

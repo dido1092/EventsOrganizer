@@ -41,6 +41,7 @@
             pictureBox1 = new PictureBox();
             buttonAnotherWord = new Button();
             labelInfo = new Label();
+            buttonHint = new Button();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -60,12 +61,12 @@
             // 
             textBoxWord.Location = new Point(31, 108);
             textBoxWord.Name = "textBoxWord";
-            textBoxWord.Size = new Size(317, 23);
+            textBoxWord.Size = new Size(243, 23);
             textBoxWord.TabIndex = 1;
             // 
             // buttonOK
             // 
-            buttonOK.Location = new Point(354, 108);
+            buttonOK.Location = new Point(280, 107);
             buttonOK.Name = "buttonOK";
             buttonOK.Size = new Size(75, 23);
             buttonOK.TabIndex = 2;
@@ -78,7 +79,7 @@
             toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButtonInsert, toolStripButtonResult, toolStripButtonRepeat });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(535, 25);
+            toolStrip1.Size = new Size(453, 25);
             toolStrip1.TabIndex = 3;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -120,7 +121,7 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(445, 108);
+            pictureBox1.Location = new Point(384, 108);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(26, 23);
             pictureBox1.TabIndex = 5;
@@ -147,12 +148,24 @@
             labelInfo.Size = new Size(30, 15);
             labelInfo.TabIndex = 7;
             labelInfo.Text = "Info";
+            labelInfo.Click += labelInfo_Click;
+            // 
+            // buttonHint
+            // 
+            buttonHint.Location = new Point(204, 153);
+            buttonHint.Name = "buttonHint";
+            buttonHint.Size = new Size(70, 23);
+            buttonHint.TabIndex = 8;
+            buttonHint.Text = "Hint";
+            buttonHint.UseVisualStyleBackColor = true;
+            buttonHint.Click += buttonHint_Click;
             // 
             // FrmEnglishWord
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(535, 255);
+            ClientSize = new Size(453, 251);
+            Controls.Add(buttonHint);
             Controls.Add(labelInfo);
             Controls.Add(buttonAnotherWord);
             Controls.Add(pictureBox1);
@@ -185,5 +198,6 @@
         private PictureBox pictureBox1;
         private Button buttonAnotherWord;
         private Label labelInfo;
+        private Button buttonHint;
     }
 }
