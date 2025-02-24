@@ -51,29 +51,8 @@ namespace EventsOrganizer
 
             string[] arrWords = label.Text.Split("-");
 
-            //string pattern = @"([А-Яа-я]+)";
 
-            //string bgWord = string.Empty;
-            //string enWord = string.Empty;
 
-            //if (!Regex.IsMatch(arrWords, pattern))
-            //{
-            //    var getWord = context.EnBgWords!.Select(w => new { w.BgWord, w.EnWord }).Where(w => w.BgWord == arrWords.Trim()).FirstOrDefault();
-
-            //    if (getWord != null)
-            //    {
-            //        bgWord = getWord.BgWord;
-            //    }
-            //}
-            //else
-            //{
-            //    var getWord = context.EnBgWords!.Select(w => new { w.BgWord, w.EnWord }).Where(w => w.EnWord == arrWords.Trim()).FirstOrDefault();
-
-            //    if (getWord != null)
-            //    {
-            //        enWord = getWord.EnWord;
-            //    }
-            //}
 
             DateTime dateTimeNow = DateTime.Now;
 
@@ -83,9 +62,26 @@ namespace EventsOrganizer
                 {
                     if (checkBoxShowOnBg.Checked)
                     {
+                        var getBgWord = context.EnBgWords!.Select(w => new { w.EnWord, w.BgWord }).Where(w => w.BgWord == arrWords[1]).FirstOrDefault();
+                        var getAllEnWords = context.EnBgWords!.Select(w => new { w.EnWord, w.BgWord }).Where(w => w.EnWord == getBgWord!.EnWord).ToList();
+
+                        string enWords = string.Empty;
+
+                        int length = 0;
+
+                        foreach (var enW in getAllEnWords)
+                        {
+                            if (length == 1)
+                            {
+                                enWords += enW.EnWord;
+                                break;
+                            }
+                            enWords += enW.EnWord + ", ";
+                            length--;
+                        }
                         RepeatWord repeatWords = new RepeatWord()
                         {
-                            EnWord = arrWords[0].Trim().ToUpper(),
+                            EnWord = enWords.ToUpper(),
                             BgWord = arrWords[1].Trim().ToUpper(),
                             Minutes = minutes,
                             Repeat = true,
@@ -137,6 +133,17 @@ namespace EventsOrganizer
                 checkBoxRepeat.Checked = false;
             }
 
+            var getCheckBox = context.RepeatWords!.Select(c => new { c.Id, c.ShowOnEng, c.ShowOnBg }).FirstOrDefault();
+
+            if (getCheckBox?.ShowOnEng == true)
+            {
+                checkBoxShowOnEn.Checked = true;
+            }
+            else if (getCheckBox?.ShowOnBg == true)
+            {
+                checkBoxShowOnBg.Checked = true;
+            }
+
             this.TopMost = true;
         }
         private bool RepeatStatus()
@@ -152,12 +159,9 @@ namespace EventsOrganizer
 
             //var getCheckBoxBg = context.RepeatWords!.Select(c => new { c.Id, c.ShowOnBg }).FirstOrDefault();
 
-            //if (getCheckBoxBg?.ShowOnBg != null)
+            //if (getCheckBoxBg?.ShowOnBg == true)
             //{
-            //    if (getCheckBoxBg!.ShowOnBg == true)
-            //    {
-            //        checkBoxShowOnBg.Checked = true;
-            //    }
+            //    checkBoxShowOnBg.Checked = true;
             //}
         }
 
@@ -165,15 +169,11 @@ namespace EventsOrganizer
         {
             checkBoxShowOnBg.Checked = false;
 
-            //var getCheckBoxBg = context.RepeatWords!.Select(c => new { c.Id, c.ShowOnEng }).FirstOrDefault();
+            //var getCheckBoxEn = context.RepeatWords!.Select(c => new { c.Id, c.ShowOnEng }).FirstOrDefault();
 
-
-            //if (getCheckBoxBg?.ShowOnEng != null)
+            //if (getCheckBoxEn?.ShowOnEng == true)
             //{
-            //    if (getCheckBoxBg!.ShowOnEng == true)
-            //    {
-            //        checkBoxShowOnBg.Checked = true;
-            //    }
+            //    checkBoxShowOnEn.Checked = true;
             //}
         }
 

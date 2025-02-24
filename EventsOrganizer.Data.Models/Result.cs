@@ -26,6 +26,8 @@ namespace EventsOrganizer.Data.Models
         [Required]
         public bool IsCorrect { get; set; }
 
+        public bool Hint { get; set; }
+
         [Required]
         public DateTime DateTime { get; set; }
     }

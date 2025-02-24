@@ -83,7 +83,7 @@ namespace EventsOrganizer
             string enWord = string.Empty;
             string bgWord = string.Empty;
 
-            HashSet<EnBgWord> hsQA = new HashSet<EnBgWord>();
+            //HashSet<string> hsQA = new HashSet<string>();
 
             DateTime dateTimeNow = DateTime.Now;
 
@@ -102,21 +102,25 @@ namespace EventsOrganizer
 
                 if (getLine != "")
                 {
-                    enWord = arrWords[0].ToUpper();
+                    enWord = arrWords[0].Trim().ToUpper();
 
-                    bgWord = arrWords[1].ToUpper();
+                    bgWord = arrWords[1].Trim().ToUpper();
 
                     if (enWord != string.Empty && bgWord != string.Empty)
                     {
-                        EnBgWord enBgWord = new EnBgWord()
-                        {
-                            EnWord = enWord,
-                            BgWord = bgWord,
-                            DateTime = dateTimeNow
-                        };
-                        context.EnBgWords!.Add(enBgWord);
-                        context.SaveChanges();
+                        //hsQA.Add($"{enWord} {bgWord}");
 
+                        //if (hsQA.Contains($"{enWord} {bgWord}"))
+                        //{
+                            EnBgWord enBgWord = new EnBgWord()
+                            {
+                                EnWord = enWord,
+                                BgWord = bgWord,
+                                DateTime = dateTimeNow
+                            };
+                            context.EnBgWords!.Add(enBgWord);
+                            context.SaveChanges();
+                        //}
                         bgWord = string.Empty;
                         enWord = string.Empty;
                     }

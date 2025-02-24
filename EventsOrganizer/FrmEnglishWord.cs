@@ -15,10 +15,13 @@ namespace EventsOrganizer
         private string enWord = string.Empty;
         private string bgWord = string.Empty;
 
+        private int getRndWordId = 0;
         public int getMin = 0;
+
         private DateTime dt;
 
-        private int getRndWordId = 0;
+        private bool isHintUsed = false;
+
 
         public FrmEnglishWord(DateTime dateTime)
         {
@@ -37,13 +40,11 @@ namespace EventsOrganizer
         }
         public void Execute()
         {
-            var repeat = context.RepeatWords!.Select(r => r.Repeat).FirstOrDefault();
+            var getData = context.RepeatWords!.Select(r => new { r.Repeat, r.ShowOnBg, r.ShowOnEng }).FirstOrDefault();
 
             FrmRepeatWord frmRepeatWord = new FrmRepeatWord(labelWord);
 
-            bool isCheckBoxBgChecked = frmRepeatWord.GetCheckBoxChecked();
-
-            if (repeat == false)
+            if (getData == null)
             {
                 Random rndWord = new Random();
                 getRndWordId = rndWord.Next(2, 10000);//Words Id's range in DB
@@ -60,14 +61,31 @@ namespace EventsOrganizer
             }
             else
             {
-                var getWords = context.RepeatWords!.Select(w => new { w.Id, w.EnWord, w.BgWord, w.Minutes, w.Repeat }).OrderByDescending(w => w.Id).FirstOrDefault();
+                var getWord = context.RepeatWords!.Select(w => new { w.Id, w.EnWord, w.BgWord, w.Minutes, w.Repeat }).OrderByDescending(w => w.Id).FirstOrDefault();
 
-                if (getWords != null)
+
+                var getFromEnBgWords = context.EnBgWords!.Select(w => new { w.EnWord, w.BgWord }).Where(w => w.BgWord == getWord!.BgWord).ToList();
+
+                if (getFromEnBgWords != null)
                 {
-                    enWord = getWords.EnWord.Trim();
-                    bgWord = getWords.BgWord.Trim();
+                    enWord = string.Empty;
 
-                    if (isCheckBoxBgChecked)
+                    int length = getFromEnBgWords.Count;
+
+                    foreach (var w in getFromEnBgWords)
+                    {
+                        if (length == 1)
+                        {
+                            enWord += w.EnWord.Trim();
+                            break;
+                        }
+                        enWord += w.EnWord.Trim() + ", ";
+                        bgWord = w.BgWord.Trim();
+
+                        length--;
+                    }
+
+                    if (getData.ShowOnBg == true)
                     {
                         labelWord.Text = $"{bgWord}";
                     }
@@ -75,46 +93,67 @@ namespace EventsOrganizer
                     {
                         labelWord.Text = $"{enWord}";
                     }
+
+                    labelInfo.Text = $"Repeating on every {getWord!.Minutes} min. \nLast Repeated in {dt}";
                 }
-                labelInfo.Text = $"Repeating on every {getWords!.Minutes} min. \nLast Repeated in {dt}";
+
+                isHintUsed = false;
+
             }
 
-            //this.Show();
+            this.Show();
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            var getCheckBoxChecked = context.RepeatWords!.Select(c => new { c.ShowOnBg, c.ShowOnEng }).FirstOrDefault();
+            var getCheckBoxChecked = context.RepeatWords!.Select(c => new { c.EnWord, c.BgWord, c.ShowOnBg, c.ShowOnEng }).FirstOrDefault();
+           
 
             string getEnWord = string.Empty;
             string getBgWord = string.Empty;
 
             if (getCheckBoxChecked != null)
             {
-                if (getCheckBoxChecked.ShowOnEng == true)
-                {
-                    getEnWord = labelWord.Text.Trim().ToUpper();
-                    getBgWord = textBoxWord.Text.Trim().ToUpper();
-                }
-                else if (getCheckBoxChecked.ShowOnBg == true)
-                {
-                    getBgWord = labelWord.Text.Trim().ToUpper();
-                    getEnWord = textBoxWord.Text.Trim().ToUpper();
-                }
-                string getWords = textBoxWord.Text;
+                //if (getCheckBoxChecked.ShowOnEng == true)
+                //{
+                //    getEnWord = labelWord.Text.Trim().ToUpper();
+                //    getBgWord = textBoxWord.Text.Trim().ToUpper();
+                //}
+                //else if (getCheckBoxChecked.ShowOnBg == true)
+                //{
+                //    getEnWord = textBoxWord.Text.Trim().ToUpper();
+                //    getBgWord = labelWord.Text.Trim().ToUpper();
+                //}
+                string getWords = textBoxWord.Text.Trim().ToUpper();
 
                 DateTime dtNow = DateTime.Now;
 
-                if (getEnWord == enWord.Trim().ToUpper() && getBgWord == bgWord.Trim().ToUpper())//Check if writing word is correct and equal to enWord
+                if (getWords == getCheckBoxChecked.BgWord.Trim().ToUpper() || getWords == getCheckBoxChecked.EnWord.Trim().ToUpper())//Check if writing word is correct and equal to enWord
                 {
-                    Result result = new Result()
+                    if (isHintUsed)
                     {
-                        EnWord = getEnWord,
-                        BgWord = getBgWord,
-                        IsCorrect = true,
-                        DateTime = dtNow
-                    };
-                    context.Add(result);
+                        Result result = new Result()
+                        {
+                            EnWord = getEnWord,
+                            BgWord = getBgWord,
+                            IsCorrect = true,
+                            Hint = true,
+                            DateTime = dtNow
+                        };
+                        context.Add(result);
+                    }
+                    else
+                    {
+                        Result result = new Result()
+                        {
+                            EnWord = getEnWord,
+                            BgWord = getBgWord,
+                            IsCorrect = true,
+                            Hint = false,
+                            DateTime = dtNow
+                        };
+                        context.Add(result);
+                    }
 
                     textBoxWord.Text = string.Empty;
 
@@ -193,26 +232,36 @@ namespace EventsOrganizer
 
             if (Regex.IsMatch(getWordFromLabel, pattern))
             {
-                var getWord = context.EnBgWords!.Select(w => new { w.BgWord, w.EnWord }).Where(w => w.BgWord == getWordFromLabel.Trim()).FirstOrDefault();
+                var getWord = context.EnBgWords!.Select(w => new { w.BgWord, w.EnWord }).Where(w => w.BgWord.Trim() == getWordFromLabel.Trim()).ToList();
 
                 if (getWord != null)
                 {
-                    enWord = getWord.EnWord.Trim();
+                    int length = getWord.Count;
+
+                    foreach (var w in getWord)
+                    {
+                        if (length == 1)
+                        {
+                            enWord += w.EnWord.Trim();
+                            break;
+                        }
+                        enWord += w.EnWord.Trim() + ", ";
+
+                        length--;
+                    }
                 }
             }
-            else
+            else//For En word reverse
             {
-                var getWord = context.EnBgWords!.Select(w => new { w.BgWord, w.EnWord }).Where(w => w.EnWord == getWordFromLabel.Trim()).FirstOrDefault();
+                string[] words = getWordFromLabel.Split(',');
+
+                var getWord = context.EnBgWords!.Select(w => new { w.BgWord, w.EnWord }).Where(w => w.EnWord.Trim() == words[0].Trim()).FirstOrDefault();
 
                 if (getWord != null)
                 {
                     bgWord = getWord.BgWord.Trim();
                 }
             }
-
-
-
-            //var getWords = context.EnBgWords!.Select(w => new { w.Id, w.EnWord, w.BgWord }).Where(w => w.Id == getRndWordId).FirstOrDefault();
 
             var getCheckBox = context.RepeatWords!.Select(c => new { c.Id, c.ShowOnBg, c.ShowOnEng }).FirstOrDefault();
 
@@ -224,6 +273,8 @@ namespace EventsOrganizer
             {
                 MessageBox.Show($"{enWord}");
             }
+
+            isHintUsed = true;
         }
 
         private void labelInfo_Click(object sender, EventArgs e)

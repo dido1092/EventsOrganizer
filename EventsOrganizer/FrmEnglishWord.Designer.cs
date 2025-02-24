@@ -61,14 +61,14 @@
             // 
             textBoxWord.Location = new Point(31, 108);
             textBoxWord.Name = "textBoxWord";
-            textBoxWord.Size = new Size(243, 23);
+            textBoxWord.Size = new Size(289, 23);
             textBoxWord.TabIndex = 1;
             // 
             // buttonOK
             // 
-            buttonOK.Location = new Point(280, 107);
+            buttonOK.Location = new Point(326, 108);
             buttonOK.Name = "buttonOK";
-            buttonOK.Size = new Size(75, 23);
+            buttonOK.Size = new Size(89, 23);
             buttonOK.TabIndex = 2;
             buttonOK.Text = "OK";
             buttonOK.UseVisualStyleBackColor = true;
@@ -79,7 +79,7 @@
             toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButtonInsert, toolStripButtonResult, toolStripButtonRepeat });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(453, 25);
+            toolStrip1.Size = new Size(527, 25);
             toolStrip1.TabIndex = 3;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -121,7 +121,7 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(384, 108);
+            pictureBox1.Location = new Point(454, 108);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(26, 23);
             pictureBox1.TabIndex = 5;
@@ -152,7 +152,7 @@
             // 
             // buttonHint
             // 
-            buttonHint.Location = new Point(204, 153);
+            buttonHint.Location = new Point(250, 153);
             buttonHint.Name = "buttonHint";
             buttonHint.Size = new Size(70, 23);
             buttonHint.TabIndex = 8;
@@ -164,7 +164,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(453, 251);
+            ClientSize = new Size(527, 263);
             Controls.Add(buttonHint);
             Controls.Add(labelInfo);
             Controls.Add(buttonAnotherWord);
@@ -174,6 +174,7 @@
             Controls.Add(textBoxWord);
             Controls.Add(labelWord);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "FrmEnglishWord";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Learn English Word";

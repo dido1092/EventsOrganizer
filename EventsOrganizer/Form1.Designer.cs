@@ -169,7 +169,7 @@
             buttonDeleteEvent.Name = "buttonDeleteEvent";
             buttonDeleteEvent.Size = new Size(118, 32);
             buttonDeleteEvent.TabIndex = 4;
-            buttonDeleteEvent.Text = "CLEAR";
+            buttonDeleteEvent.Text = "DELETE";
             buttonDeleteEvent.UseVisualStyleBackColor = true;
             buttonDeleteEvent.Click += buttonDeleteEvent_Click;
             // 

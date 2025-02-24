@@ -30,14 +30,15 @@
         {
             components = new System.ComponentModel.Container();
             dataGridViewResult = new DataGridView();
+            resultBindingSource = new BindingSource(components);
+            buttonRefresh = new Button();
+            labelRows = new Label();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             enWordDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             bgWordDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             isCorrectDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            Hint = new DataGridViewCheckBoxColumn();
             dateTimeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            resultBindingSource = new BindingSource(components);
-            buttonRefresh = new Button();
-            labelRows = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridViewResult).BeginInit();
             ((System.ComponentModel.ISupportInitialize)resultBindingSource).BeginInit();
             SuspendLayout();
@@ -48,13 +49,36 @@
             dataGridViewResult.AllowUserToDeleteRows = false;
             dataGridViewResult.AutoGenerateColumns = false;
             dataGridViewResult.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewResult.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, enWordDataGridViewTextBoxColumn, bgWordDataGridViewTextBoxColumn, isCorrectDataGridViewCheckBoxColumn, dateTimeDataGridViewTextBoxColumn });
+            dataGridViewResult.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, enWordDataGridViewTextBoxColumn, bgWordDataGridViewTextBoxColumn, isCorrectDataGridViewCheckBoxColumn, Hint, dateTimeDataGridViewTextBoxColumn });
             dataGridViewResult.DataSource = resultBindingSource;
             dataGridViewResult.Location = new Point(35, 62);
             dataGridViewResult.Name = "dataGridViewResult";
             dataGridViewResult.ReadOnly = true;
             dataGridViewResult.Size = new Size(664, 332);
             dataGridViewResult.TabIndex = 0;
+            // 
+            // resultBindingSource
+            // 
+            resultBindingSource.DataSource = typeof(Data.Models.Result);
+            // 
+            // buttonRefresh
+            // 
+            buttonRefresh.Location = new Point(719, 62);
+            buttonRefresh.Name = "buttonRefresh";
+            buttonRefresh.Size = new Size(96, 31);
+            buttonRefresh.TabIndex = 1;
+            buttonRefresh.Text = "REFRESH";
+            buttonRefresh.UseVisualStyleBackColor = true;
+            buttonRefresh.Click += buttonRefresh_Click;
+            // 
+            // labelRows
+            // 
+            labelRows.AutoSize = true;
+            labelRows.Location = new Point(37, 414);
+            labelRows.Name = "labelRows";
+            labelRows.Size = new Size(38, 15);
+            labelRows.TabIndex = 2;
+            labelRows.Text = "Rows:";
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -86,6 +110,13 @@
             isCorrectDataGridViewCheckBoxColumn.Name = "isCorrectDataGridViewCheckBoxColumn";
             isCorrectDataGridViewCheckBoxColumn.ReadOnly = true;
             // 
+            // Hint
+            // 
+            Hint.DataPropertyName = "Hint";
+            Hint.HeaderText = "Hint";
+            Hint.Name = "Hint";
+            Hint.ReadOnly = true;
+            // 
             // dateTimeDataGridViewTextBoxColumn
             // 
             dateTimeDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -93,29 +124,6 @@
             dateTimeDataGridViewTextBoxColumn.HeaderText = "DateTime";
             dateTimeDataGridViewTextBoxColumn.Name = "dateTimeDataGridViewTextBoxColumn";
             dateTimeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // resultBindingSource
-            // 
-            resultBindingSource.DataSource = typeof(Data.Models.Result);
-            // 
-            // buttonRefresh
-            // 
-            buttonRefresh.Location = new Point(719, 62);
-            buttonRefresh.Name = "buttonRefresh";
-            buttonRefresh.Size = new Size(96, 31);
-            buttonRefresh.TabIndex = 1;
-            buttonRefresh.Text = "REFRESH";
-            buttonRefresh.UseVisualStyleBackColor = true;
-            buttonRefresh.Click += buttonRefresh_Click;
-            // 
-            // labelRows
-            // 
-            labelRows.AutoSize = true;
-            labelRows.Location = new Point(37, 414);
-            labelRows.Name = "labelRows";
-            labelRows.Size = new Size(38, 15);
-            labelRows.TabIndex = 2;
-            labelRows.Text = "Rows:";
             // 
             // FrmResults
             // 
@@ -139,12 +147,13 @@
 
         private DataGridView dataGridViewResult;
         private Button buttonRefresh;
+        private BindingSource resultBindingSource;
+        private Label labelRows;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn enWordDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn bgWordDataGridViewTextBoxColumn;
         private DataGridViewCheckBoxColumn isCorrectDataGridViewCheckBoxColumn;
+        private DataGridViewCheckBoxColumn Hint;
         private DataGridViewTextBoxColumn dateTimeDataGridViewTextBoxColumn;
-        private BindingSource resultBindingSource;
-        private Label labelRows;
     }
 }
