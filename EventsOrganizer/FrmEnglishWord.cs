@@ -77,6 +77,7 @@ namespace EventsOrganizer
                         if (length == 1)
                         {
                             enWord += w.EnWord.Trim();
+                            bgWord = w.BgWord.Trim();
                             break;
                         }
                         enWord += w.EnWord.Trim() + ", ";
