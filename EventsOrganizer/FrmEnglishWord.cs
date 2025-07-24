@@ -128,7 +128,10 @@ namespace EventsOrganizer
 
                 DateTime dtNow = DateTime.Now;
 
-                if (getWords == getCheckBoxChecked.BgWord.Trim().ToUpper() || getWords == getCheckBoxChecked.EnWord.Trim().ToUpper())//Check if writing word is correct and equal to enWord
+                string[] enCurrentWord = getCheckBoxChecked.EnWord.Trim().ToUpper().Split(',');
+                string[] bgCurrentWord = getCheckBoxChecked.BgWord.Trim().ToUpper().Split(',');
+
+                if (getWords == enCurrentWord[0] || getWords == bgCurrentWord[0])//Check if writing word is correct and equal to enWord
                 {
                     if (isHintUsed)
                     {

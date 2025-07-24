@@ -51,9 +51,6 @@ namespace EventsOrganizer
 
             string[] arrWords = label.Text.Split("-");
 
-
-
-
             DateTime dateTimeNow = DateTime.Now;
 
             if (arrWords.Length > 1)
@@ -62,7 +59,7 @@ namespace EventsOrganizer
                 {
                     if (checkBoxShowOnBg.Checked)
                     {
-                        var getBgWord = context.EnBgWords!.Select(w => new { w.EnWord, w.BgWord }).Where(w => w.BgWord == arrWords[1]).FirstOrDefault();
+                        var getBgWord = context.EnBgWords!.Select(w => new { w.EnWord, w.BgWord }).Where(w => w.BgWord == arrWords[1].ToUpper().Trim()).FirstOrDefault();
                         var getAllEnWords = context.EnBgWords!.Select(w => new { w.EnWord, w.BgWord }).Where(w => w.EnWord == getBgWord!.EnWord).ToList();
 
                         string enWords = string.Empty;
