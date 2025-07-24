@@ -807,31 +807,31 @@ namespace EventsOrganizer
             PlaySound();
         }
 
-        private void PassedTime()
-        {
-            string currentDateTime = DateTime.Now.ToString();
+        //private void PassedTime()
+        //{
+        //    string currentDateTime = DateTime.Now.ToString();
 
-            var getAllEnablesTrue = context.Events!.Select(e => new { e.Id, e.eventName, e.enable, e.dateTimeNow, e.remindDateTime }).Where(e => e.enable == true).ToList();
+        //    var getAllEnablesTrue = context.Events!.Select(e => new { e.Id, e.eventName, e.enable, e.dateTimeNow, e.remindDateTime }).Where(e => e.enable == true).ToList();
 
-            foreach (var e in getAllEnablesTrue)
-            {
-                int getId = e.Id;
+        //    foreach (var e in getAllEnablesTrue)
+        //    {
+        //        int getId = e.Id;
 
-                string remindDateTime = e.remindDateTime.ToString();
+        //        string remindDateTime = e.remindDateTime.ToString();
 
-                string eventName = e.eventName.ToString();
+        //        string eventName = e.eventName.ToString();
 
-                TimeSpan span = Convert.ToDateTime(remindDateTime).Subtract(Convert.ToDateTime(currentDateTime));
+        //        TimeSpan span = Convert.ToDateTime(remindDateTime).Subtract(Convert.ToDateTime(currentDateTime));
 
-                var totalMiliseconds = span.TotalMilliseconds;
+        //        var totalMiliseconds = span.TotalMilliseconds;
 
-                if (totalMiliseconds < 0)
-                {
-                    PlaySound();
-                    return;
-                }
-            }
-        }
+        //        if (totalMiliseconds < 0)
+        //        {
+        //            PlaySound();
+        //            return;
+        //        }
+        //    }
+        //}
 
         public void labelEventNums_Click(object sender, EventArgs e)
         {

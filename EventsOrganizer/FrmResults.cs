@@ -66,5 +66,10 @@ namespace EventsOrganizer
             //labelEventNums.Text = $"Събития бр: {recordCount}";
             labelRows.Text = $"Rows: {recordCount}";
         }
+
+        private void FrmResults_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
