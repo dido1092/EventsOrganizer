@@ -141,11 +141,15 @@ namespace EventsOrganizer
                 checkBoxShowOnBg.Checked = true;
             }
 
+            var repeatMin = context.RepeatWords!.Select(r => r.Minutes).FirstOrDefault();
+
+            comboBoxMin.Text = $"{repeatMin.ToString()}";
+
             this.TopMost = true;
         }
         private bool RepeatStatus()
         {
-            var repeatStatus = context.RepeatWords!.Select(r => r.Repeat).FirstOrDefault();
+            var repeatStatus = context.RepeatWords!.Select(r => r.Repeat ).FirstOrDefault();
 
             return repeatStatus;
         }
