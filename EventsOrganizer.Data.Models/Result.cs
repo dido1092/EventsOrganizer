@@ -24,6 +24,9 @@ namespace EventsOrganizer.Data.Models
         public string BgWord { get; set; }
 
         [Required]
+        public string WritingWord { get; set; }
+
+        [Required]
         public bool IsCorrect { get; set; }
 
         public bool Hint { get; set; }

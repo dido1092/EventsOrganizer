@@ -142,12 +142,12 @@ namespace EventsOrganizer
                         {
                             EnWord = getEnWord,
                             BgWord = getBgWord,
+                            WritingWord = getWords,
                             IsCorrect = true,
                             Hint = true,
                             DateTime = dtNow
                         };
                         context.Add(result);
-                        //context.SaveChanges();
                     }
                     else
                     {
@@ -155,18 +155,18 @@ namespace EventsOrganizer
                         {
                             EnWord = getEnWord,
                             BgWord = getBgWord,
+                            WritingWord = getWords,
                             IsCorrect = true,
                             Hint = false,
                             DateTime = dtNow
                         };
                         context.Add(result);
-                        //context.SaveChanges();
                     }
 
                     textBoxWord.Text = string.Empty;
 
                     MessageBox.Show("Correct!");
-
+                    this.Close();
                 }
                 else
                 {
@@ -174,16 +174,20 @@ namespace EventsOrganizer
                     {
                         EnWord = getEnWord,
                         BgWord = getBgWord,
+                        WritingWord = getWords,
                         IsCorrect = false,
                         DateTime = dtNow
                     };
                     context.Add(result);
-                    //context.SaveChanges();
 
                     MessageBox.Show("InCorrect!");
+
+                    //----------- Select InCorrect word --------------
+                    textBoxWord.Focus();
+                    textBoxWord.SelectAll();
+                    //------------------------------------------------
                 }
                 context.SaveChanges();
-                this.Close();
             }
         }
 
