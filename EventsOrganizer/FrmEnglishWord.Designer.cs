@@ -42,6 +42,8 @@
             buttonAnotherWord = new Button();
             labelInfo = new Label();
             buttonHint = new Button();
+            textBoxSearchWord = new TextBox();
+            buttonSearch = new Button();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -50,7 +52,7 @@
             // 
             labelWord.AutoSize = true;
             labelWord.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            labelWord.Location = new Point(31, 41);
+            labelWord.Location = new Point(38, 127);
             labelWord.Name = "labelWord";
             labelWord.Size = new Size(79, 30);
             labelWord.TabIndex = 0;
@@ -59,14 +61,14 @@
             // 
             // textBoxWord
             // 
-            textBoxWord.Location = new Point(31, 108);
+            textBoxWord.Location = new Point(38, 194);
             textBoxWord.Name = "textBoxWord";
             textBoxWord.Size = new Size(289, 23);
             textBoxWord.TabIndex = 1;
             // 
             // buttonOK
             // 
-            buttonOK.Location = new Point(326, 108);
+            buttonOK.Location = new Point(333, 194);
             buttonOK.Name = "buttonOK";
             buttonOK.Size = new Size(89, 23);
             buttonOK.TabIndex = 2;
@@ -79,7 +81,7 @@
             toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButtonInsert, toolStripButtonResult, toolStripButtonRepeat });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(527, 25);
+            toolStrip1.Size = new Size(546, 25);
             toolStrip1.TabIndex = 3;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -121,7 +123,7 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(454, 108);
+            pictureBox1.Location = new Point(461, 194);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(26, 23);
             pictureBox1.TabIndex = 5;
@@ -130,7 +132,7 @@
             // 
             // buttonAnotherWord
             // 
-            buttonAnotherWord.Location = new Point(31, 153);
+            buttonAnotherWord.Location = new Point(38, 239);
             buttonAnotherWord.Name = "buttonAnotherWord";
             buttonAnotherWord.Size = new Size(96, 23);
             buttonAnotherWord.TabIndex = 6;
@@ -143,7 +145,7 @@
             labelInfo.AutoSize = true;
             labelInfo.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
             labelInfo.ForeColor = SystemColors.ActiveCaptionText;
-            labelInfo.Location = new Point(31, 212);
+            labelInfo.Location = new Point(38, 298);
             labelInfo.Name = "labelInfo";
             labelInfo.Size = new Size(30, 15);
             labelInfo.TabIndex = 7;
@@ -152,7 +154,7 @@
             // 
             // buttonHint
             // 
-            buttonHint.Location = new Point(250, 153);
+            buttonHint.Location = new Point(257, 239);
             buttonHint.Name = "buttonHint";
             buttonHint.Size = new Size(70, 23);
             buttonHint.TabIndex = 8;
@@ -160,11 +162,30 @@
             buttonHint.UseVisualStyleBackColor = true;
             buttonHint.Click += buttonHint_Click;
             // 
+            // textBoxSearchWord
+            // 
+            textBoxSearchWord.Location = new Point(38, 41);
+            textBoxSearchWord.Name = "textBoxSearchWord";
+            textBoxSearchWord.Size = new Size(189, 23);
+            textBoxSearchWord.TabIndex = 9;
+            // 
+            // buttonSearch
+            // 
+            buttonSearch.Location = new Point(233, 41);
+            buttonSearch.Name = "buttonSearch";
+            buttonSearch.Size = new Size(94, 23);
+            buttonSearch.TabIndex = 10;
+            buttonSearch.Text = "Search";
+            buttonSearch.UseVisualStyleBackColor = true;
+            buttonSearch.Click += buttonSearch_Click;
+            // 
             // FrmEnglishWord
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(527, 263);
+            ClientSize = new Size(546, 344);
+            Controls.Add(buttonSearch);
+            Controls.Add(textBoxSearchWord);
             Controls.Add(buttonHint);
             Controls.Add(labelInfo);
             Controls.Add(buttonAnotherWord);
@@ -200,5 +221,7 @@
         private Button buttonAnotherWord;
         private Label labelInfo;
         private Button buttonHint;
+        private TextBox textBoxSearchWord;
+        private Button buttonSearch;
     }
 }

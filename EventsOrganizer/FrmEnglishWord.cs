@@ -294,5 +294,14 @@ namespace EventsOrganizer
         {
 
         }
+
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            string searchText = textBoxSearchWord.Text.Trim();
+            var selectWord = context.EnBgWords!.Select(w => new { w.Id, w.EnWord, w.BgWord }).Where(w => w.EnWord.ToUpper().Contains(textBoxSearchWord.Text.ToUpper()) || w.BgWord.ToUpper().Contains(textBoxSearchWord.Text.ToUpper()))
+                .FirstOrDefault();
+
+            labelWord.Text = selectWord!.EnWord + " - " + selectWord!.BgWord;
+        }
     }
 }
