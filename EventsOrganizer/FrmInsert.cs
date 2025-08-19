@@ -30,8 +30,8 @@ namespace EventsOrganizer
 
         private void buttonInserManualWords_Click(object sender, EventArgs e)
         {
-            string enW = textBoxEnWord.Text;
-            string bgW = textBoxBgWord.Text;
+            string enW = textBoxEnWord.Text.ToUpper();
+            string bgW = textBoxBgWord.Text.ToUpper();
 
             if (enW.Length > 0 && bgW.Length > 0)
             {

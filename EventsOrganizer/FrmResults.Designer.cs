@@ -30,11 +30,6 @@
         {
             components = new System.ComponentModel.Container();
             dataGridViewResult = new DataGridView();
-            resultBindingSource = new BindingSource(components);
-            buttonRefresh = new Button();
-            labelRows = new Label();
-            comboBoxDate = new ComboBox();
-            buttonSelectDate = new Button();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             enWordDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             bgWordDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -42,6 +37,11 @@
             isCorrectDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             Hint = new DataGridViewCheckBoxColumn();
             dateTimeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            resultBindingSource = new BindingSource(components);
+            buttonRefresh = new Button();
+            labelRows = new Label();
+            comboBoxDate = new ComboBox();
+            buttonSelectDate = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewResult).BeginInit();
             ((System.ComponentModel.ISupportInitialize)resultBindingSource).BeginInit();
             SuspendLayout();
@@ -60,47 +60,6 @@
             dataGridViewResult.Size = new Size(798, 444);
             dataGridViewResult.TabIndex = 0;
             dataGridViewResult.CellContentClick += dataGridViewResult_CellContentClick;
-            // 
-            // resultBindingSource
-            // 
-            resultBindingSource.DataSource = typeof(Data.Models.Result);
-            // 
-            // buttonRefresh
-            // 
-            buttonRefresh.Location = new Point(839, 88);
-            buttonRefresh.Name = "buttonRefresh";
-            buttonRefresh.Size = new Size(96, 31);
-            buttonRefresh.TabIndex = 1;
-            buttonRefresh.Text = "REFRESH";
-            buttonRefresh.UseVisualStyleBackColor = true;
-            buttonRefresh.Click += buttonRefresh_Click;
-            // 
-            // labelRows
-            // 
-            labelRows.AutoSize = true;
-            labelRows.Location = new Point(35, 546);
-            labelRows.Name = "labelRows";
-            labelRows.Size = new Size(38, 15);
-            labelRows.TabIndex = 2;
-            labelRows.Text = "Rows:";
-            // 
-            // comboBoxDate
-            // 
-            comboBoxDate.FormattingEnabled = true;
-            comboBoxDate.Location = new Point(35, 43);
-            comboBoxDate.Name = "comboBoxDate";
-            comboBoxDate.Size = new Size(99, 23);
-            comboBoxDate.TabIndex = 3;
-            // 
-            // buttonSelectDate
-            // 
-            buttonSelectDate.Location = new Point(149, 43);
-            buttonSelectDate.Name = "buttonSelectDate";
-            buttonSelectDate.Size = new Size(79, 23);
-            buttonSelectDate.TabIndex = 4;
-            buttonSelectDate.Text = "Select Date";
-            buttonSelectDate.UseVisualStyleBackColor = true;
-            buttonSelectDate.Click += buttonSelectDate_Click;
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -153,6 +112,47 @@
             dateTimeDataGridViewTextBoxColumn.HeaderText = "DateTime";
             dateTimeDataGridViewTextBoxColumn.Name = "dateTimeDataGridViewTextBoxColumn";
             dateTimeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // resultBindingSource
+            // 
+            resultBindingSource.DataSource = typeof(Data.Models.Result);
+            // 
+            // buttonRefresh
+            // 
+            buttonRefresh.Location = new Point(857, 88);
+            buttonRefresh.Name = "buttonRefresh";
+            buttonRefresh.Size = new Size(96, 31);
+            buttonRefresh.TabIndex = 1;
+            buttonRefresh.Text = "REFRESH";
+            buttonRefresh.UseVisualStyleBackColor = true;
+            buttonRefresh.Click += buttonRefresh_Click;
+            // 
+            // labelRows
+            // 
+            labelRows.AutoSize = true;
+            labelRows.Location = new Point(35, 546);
+            labelRows.Name = "labelRows";
+            labelRows.Size = new Size(38, 15);
+            labelRows.TabIndex = 2;
+            labelRows.Text = "Rows:";
+            // 
+            // comboBoxDate
+            // 
+            comboBoxDate.FormattingEnabled = true;
+            comboBoxDate.Location = new Point(35, 43);
+            comboBoxDate.Name = "comboBoxDate";
+            comboBoxDate.Size = new Size(99, 23);
+            comboBoxDate.TabIndex = 3;
+            // 
+            // buttonSelectDate
+            // 
+            buttonSelectDate.Location = new Point(149, 43);
+            buttonSelectDate.Name = "buttonSelectDate";
+            buttonSelectDate.Size = new Size(79, 23);
+            buttonSelectDate.TabIndex = 4;
+            buttonSelectDate.Text = "Select Date";
+            buttonSelectDate.UseVisualStyleBackColor = true;
+            buttonSelectDate.Click += buttonSelectDate_Click;
             // 
             // FrmResults
             // 

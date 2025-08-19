@@ -877,16 +877,16 @@ namespace EventsOrganizer
         }
 
         private void timerRepeatWord_Tick(object sender, EventArgs e)
-        {         
+        {
             var getInterval = context.RepeatWords!.Select(i => i.Minutes).FirstOrDefault();
-            
+
             DateTime now = DateTime.Now;
 
             timerRepeatWord.Interval = 1000;
 
             if (getInterval != 0)
             {
-               FrmEnglishWord frmEnglishWord = new FrmEnglishWord(lastDateTimeRepeatWord);
+                FrmEnglishWord frmEnglishWord = new FrmEnglishWord(lastDateTimeRepeatWord);
                 //frmEnglishWord.timerMinutes.Enabled = true;
 
                 timerRepeatWord.Interval = getInterval * 60000;
@@ -898,8 +898,13 @@ namespace EventsOrganizer
             }
         }
         public DateTime GetLastDateTimeRepeating()
-        { 
-           return lastDateTimeRepeatWord = DateTime.Now;
+        {
+            return lastDateTimeRepeatWord = DateTime.Now;
+        }
+
+        private void textBoxEventName_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

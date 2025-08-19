@@ -35,7 +35,11 @@
             buttonOK = new Button();
             toolStrip1 = new ToolStrip();
             toolStripButtonInsert = new ToolStripButton();
+            toolStripSeparator1 = new ToolStripSeparator();
+            toolStripButtonTableWords = new ToolStripButton();
+            toolStripSeparator2 = new ToolStripSeparator();
             toolStripButtonResult = new ToolStripButton();
+            toolStripSeparator3 = new ToolStripSeparator();
             toolStripButtonRepeat = new ToolStripButton();
             timerMinutes = new System.Windows.Forms.Timer(components);
             pictureBox1 = new PictureBox();
@@ -78,10 +82,10 @@
             // 
             // toolStrip1
             // 
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButtonInsert, toolStripButtonResult, toolStripButtonRepeat });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButtonInsert, toolStripSeparator1, toolStripButtonTableWords, toolStripSeparator2, toolStripButtonResult, toolStripSeparator3, toolStripButtonRepeat });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(546, 25);
+            toolStrip1.Size = new Size(629, 25);
             toolStrip1.TabIndex = 3;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -95,6 +99,26 @@
             toolStripButtonInsert.Text = "Insert";
             toolStripButtonInsert.Click += toolStripButtonInsert_Click;
             // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 25);
+            // 
+            // toolStripButtonTableWords
+            // 
+            toolStripButtonTableWords.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStripButtonTableWords.Image = (Image)resources.GetObject("toolStripButtonTableWords.Image");
+            toolStripButtonTableWords.ImageTransparentColor = Color.Magenta;
+            toolStripButtonTableWords.Name = "toolStripButtonTableWords";
+            toolStripButtonTableWords.Size = new Size(23, 22);
+            toolStripButtonTableWords.Text = "Words";
+            toolStripButtonTableWords.Click += toolStripButtonTableWords_Click;
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(6, 25);
+            // 
             // toolStripButtonResult
             // 
             toolStripButtonResult.DisplayStyle = ToolStripItemDisplayStyle.Image;
@@ -104,6 +128,11 @@
             toolStripButtonResult.Size = new Size(23, 22);
             toolStripButtonResult.Text = "Result";
             toolStripButtonResult.Click += toolStripButtonResult_Click;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(6, 25);
             // 
             // toolStripButtonRepeat
             // 
@@ -166,14 +195,14 @@
             // 
             textBoxSearchWord.Location = new Point(38, 41);
             textBoxSearchWord.Name = "textBoxSearchWord";
-            textBoxSearchWord.Size = new Size(189, 23);
+            textBoxSearchWord.Size = new Size(289, 23);
             textBoxSearchWord.TabIndex = 9;
             // 
             // buttonSearch
             // 
-            buttonSearch.Location = new Point(233, 41);
+            buttonSearch.Location = new Point(333, 41);
             buttonSearch.Name = "buttonSearch";
-            buttonSearch.Size = new Size(94, 23);
+            buttonSearch.Size = new Size(89, 23);
             buttonSearch.TabIndex = 10;
             buttonSearch.Text = "Search";
             buttonSearch.UseVisualStyleBackColor = true;
@@ -183,7 +212,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(546, 344);
+            ClientSize = new Size(629, 344);
             Controls.Add(buttonSearch);
             Controls.Add(textBoxSearchWord);
             Controls.Add(buttonHint);
@@ -223,5 +252,9 @@
         private Button buttonHint;
         private TextBox textBoxSearchWord;
         private Button buttonSearch;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripSeparator toolStripSeparator3;
+        private ToolStripButton toolStripButtonTableWords;
     }
 }

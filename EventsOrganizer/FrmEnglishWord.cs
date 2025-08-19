@@ -109,86 +109,123 @@ namespace EventsOrganizer
         {
             var getCheckBoxChecked = context.RepeatWords!.Select(c => new { c.EnWord, c.BgWord, c.ShowOnBg, c.ShowOnEng }).FirstOrDefault();
 
-
-            string getEnWord = string.Empty;
-            string getBgWord = string.Empty;
-
             if (getCheckBoxChecked != null)
             {
-                //if (getCheckBoxChecked.ShowOnEng == true)
-                //{
-                //    getEnWord = labelWord.Text.Trim().ToUpper();
-                //    getBgWord = textBoxWord.Text.Trim().ToUpper();
-                //}
-                //else if (getCheckBoxChecked.ShowOnBg == true)
-                //{
-                //    getEnWord = textBoxWord.Text.Trim().ToUpper();
-                //    getBgWord = labelWord.Text.Trim().ToUpper();
-                //}
                 string getWords = textBoxWord.Text.Trim().ToUpper();
+                string[] arrWords = getWords.Split(',');
 
                 DateTime dtNow = DateTime.Now;
 
-                string[] enCurrentWord = getCheckBoxChecked.EnWord.Trim().ToUpper().Split(',');
-                string[] bgCurrentWord = getCheckBoxChecked.BgWord.Trim().ToUpper().Split(',');
-                getEnWord = enCurrentWord[0];
-                getBgWord = bgCurrentWord[0];
+                string wordLabel = labelWord.Text;
 
-                if (getWords == enCurrentWord[0] || getWords == bgCurrentWord[0])//Check if writing word is correct and equal to enWord
+                var isBgWord = context.RepeatWords!.Select(i => i.ShowOnBg).FirstOrDefault();
+
+                int IsNotCorrectWordCount = 0;
+
+                if (isBgWord)
                 {
-                    if (isHintUsed)
-                    {
-                        Result result = new Result()
-                        {
-                            EnWord = getEnWord,
-                            BgWord = getBgWord,
-                            WritingWord = getWords,
-                            IsCorrect = true,
-                            Hint = true,
-                            DateTime = dtNow
-                        };
-                        context.Add(result);
-                    }
-                    else
-                    {
-                        Result result = new Result()
-                        {
-                            EnWord = getEnWord,
-                            BgWord = getBgWord,
-                            WritingWord = getWords,
-                            IsCorrect = true,
-                            Hint = false,
-                            DateTime = dtNow
-                        };
-                        context.Add(result);
-                    }
+                    var allSelectedWords = context.EnBgWords!.Select(w => new { w.BgWord, w.EnWord }).Where(w => w.BgWord == wordLabel).ToList();
 
-                    textBoxWord.Text = string.Empty;
+                    foreach (var w in allSelectedWords)
+                    {
+                        if (getWords == w.EnWord)
+                        {
 
-                    MessageBox.Show("Correct!");
-                    this.Close();
+                            IsCorrect(w.EnWord, w.BgWord, getWords, dtNow);
+                            break;
+                        }
+                        else
+                        {
+                            IsNotCorrectWordCount++;
+                        }
+
+                        if (IsNotCorrectWordCount == allSelectedWords.Count())
+                        {
+                            IsNotCorrect(w.EnWord, w.BgWord, getWords, dtNow);
+                        }
+                    }
                 }
                 else
                 {
-                    Result result = new Result()
+                    var allSelectedWords = context.EnBgWords!.Select(w => new { w.BgWord, w.EnWord }).Where(w => w.EnWord == wordLabel);
+
+                    foreach (var w in allSelectedWords)
                     {
-                        EnWord = getEnWord,
-                        BgWord = getBgWord,
-                        WritingWord = getWords,
-                        IsCorrect = false,
-                        DateTime = dtNow
-                    };
-                    context.Add(result);
+                        if (getWords == w.BgWord)
+                        {
 
-                    MessageBox.Show("InCorrect!");
+                            IsCorrect(w.EnWord, w.BgWord, getWords, dtNow);
+                            break;
+                        }
+                        else
+                        {
+                            IsNotCorrectWordCount++;
+                        }
 
-                    //----------- Select InCorrect word --------------
-                    textBoxWord.Focus();
-                    textBoxWord.SelectAll();
-                    //------------------------------------------------
+                        if (IsNotCorrectWordCount == allSelectedWords.Count())
+                        {
+                            IsNotCorrect(w.EnWord, w.BgWord, getWords, dtNow);
+                        }
+                    }
                 }
+
                 context.SaveChanges();
             }
+        }
+
+        private void IsNotCorrect(string getEnWord, string getBgWord, string getWords, DateTime dtNow)
+        {
+            Result result = new Result()
+            {
+                EnWord = getEnWord,
+                BgWord = getBgWord,
+                WritingWord = getWords,
+                IsCorrect = false,
+                DateTime = dtNow
+            };
+            context.Add(result);
+
+            MessageBox.Show("InCorrect!");
+
+            //----------- Select InCorrect word --------------
+            textBoxWord.Focus();
+            textBoxWord.SelectAll();
+            //------------------------------------------------
+        }
+
+        private void IsCorrect(string getEnWord, string getBgWord, string getWords, DateTime dtNow)
+        {
+            if (isHintUsed)
+            {
+                Result result = new Result()
+                {
+                    EnWord = getEnWord,
+                    BgWord = getBgWord,
+                    WritingWord = getWords,
+                    IsCorrect = true,
+                    Hint = true,
+                    DateTime = dtNow
+                };
+                context.Add(result);
+            }
+            else
+            {
+                Result result = new Result()
+                {
+                    EnWord = getEnWord,
+                    BgWord = getBgWord,
+                    WritingWord = getWords,
+                    IsCorrect = true,
+                    Hint = false,
+                    DateTime = dtNow
+                };
+                context.Add(result);
+            }
+
+            textBoxWord.Text = string.Empty;
+
+            MessageBox.Show("Correct!");
+            this.Close();
         }
 
         private void toolStripButtonResult_Click(object sender, EventArgs e)
@@ -298,10 +335,29 @@ namespace EventsOrganizer
         private void buttonSearch_Click(object sender, EventArgs e)
         {
             string searchText = textBoxSearchWord.Text.Trim();
-            var selectWord = context.EnBgWords!.Select(w => new { w.Id, w.EnWord, w.BgWord }).Where(w => w.EnWord.ToUpper().Contains(textBoxSearchWord.Text.ToUpper()) || w.BgWord.ToUpper().Contains(textBoxSearchWord.Text.ToUpper()))
+
+            var selectWord = context.EnBgWords!.Select(w => new { w.Id, w.EnWord, w.BgWord }).Where(w => w.EnWord.ToUpper() == textBoxSearchWord.Text.ToUpper() || w.BgWord.ToUpper() == textBoxSearchWord.Text.ToUpper())
                 .FirstOrDefault();
 
-            labelWord.Text = selectWord!.EnWord + " - " + selectWord!.BgWord;
+            if (selectWord != null)
+            {
+                labelWord.Text = selectWord!.EnWord + " - " + selectWord!.BgWord;
+            }
+            else
+            {
+                MessageBox.Show("Word not found!");
+            }
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripButtonTableWords_Click(object sender, EventArgs e)
+        {
+            FrmTableWords frmTableWords = new FrmTableWords();
+            frmTableWords.Show();
         }
     }
 }

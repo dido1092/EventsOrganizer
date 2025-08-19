@@ -66,10 +66,12 @@
             // 
             // textBoxEventName
             // 
-            textBoxEventName.Location = new Point(45, 40);
+            textBoxEventName.Location = new Point(45, 36);
+            textBoxEventName.Multiline = true;
             textBoxEventName.Name = "textBoxEventName";
-            textBoxEventName.Size = new Size(213, 23);
+            textBoxEventName.Size = new Size(213, 34);
             textBoxEventName.TabIndex = 0;
+            textBoxEventName.TextChanged += textBoxEventName_TextChanged;
             // 
             // buttonAddEvent
             // 
@@ -234,7 +236,7 @@
             labelTime.AutoSize = true;
             labelTime.Location = new Point(45, 604);
             labelTime.Name = "labelTime";
-            labelTime.Size = new Size(36, 15);
+            labelTime.Size = new Size(37, 15);
             labelTime.TabIndex = 7;
             labelTime.Text = "Time:";
             // 

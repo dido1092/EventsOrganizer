@@ -5,6 +5,6 @@
     Renaming the file extension or editing the content of this file may
     cause the file to be unrecognizable by the program.
 -->
-<GenericObjectDataSource DisplayName="Result" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-  <TypeInfo>EventsOrganizer.Data.Models.Result, EventsOrganizer.Data.Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
+<GenericObjectDataSource DisplayName="EnBgWord" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+  <TypeInfo>EventsOrganizer.Data.Models.EnBgWord, EventsOrganizer.Data.Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
 </GenericObjectDataSource>

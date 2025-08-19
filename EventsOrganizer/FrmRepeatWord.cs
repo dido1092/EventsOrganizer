@@ -1,6 +1,9 @@
 ﻿using EventsOrganizer.Data;
+using EventsOrganizer.Data.Common;
 using EventsOrganizer.Data.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -46,15 +49,15 @@ namespace EventsOrganizer
         }
         public void SetMinutes()
         {
-            context.Database.ExecuteSqlRaw("TRUNCATE TABLE [RepeatWords]");
-            context.SaveChanges(true);
-
             string[] arrWords = label.Text.Split("-");
 
             DateTime dateTimeNow = DateTime.Now;
 
             if (arrWords.Length > 1)
             {
+                context.Database.ExecuteSqlRaw("TRUNCATE TABLE [RepeatWords]");
+                context.SaveChanges(true);
+
                 if (checkBoxRepeat.Checked)
                 {
                     if (checkBoxShowOnBg.Checked)
@@ -104,10 +107,72 @@ namespace EventsOrganizer
 
                         context.Add(repeatWords);
                     }
-                    context.SaveChanges();
                 }
             }
+            else if (arrWords.Length == 1)
+            {
+                if (checkBoxRepeat.Checked)
+                {
+                    SqlConnection cnn = new SqlConnection(DbConfig.ConnectionString);
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = cnn;
+
+                    using (cnn = new SqlConnection(DbConfig.ConnectionString))
+                    {
+                        cnn.Open();
+                        string sqlCommand = $"Update RepeatWords set Minutes = {minutes} Where Id = 1";
+                        cmd = new SqlCommand(sqlCommand, cnn);
+                        cmd.Parameters.AddWithValue($"@Minutes", minutes);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        cnn.Close();
+                    }
+                    if (checkBoxShowOnBg.Checked)
+                    {
+                        using (cnn = new SqlConnection(DbConfig.ConnectionString))
+                        {
+                            cnn.Open();
+                            string sqlCommand = $"Update RepeatWords set ShowOnBg = 'true' Where Id = 1";
+                            cmd = new SqlCommand(sqlCommand, cnn);
+                            cmd.Parameters.AddWithValue($"@ShowOnBg", true);
+                            int rowsAffected = cmd.ExecuteNonQuery();
+
+                            string sqlCommand2 = $"Update RepeatWords set ShowOnEng = 'false' Where Id = 1";
+                            cmd = new SqlCommand(sqlCommand2, cnn);
+                            cmd.Parameters.AddWithValue($"@ShowOnEng", false);
+                            rowsAffected = cmd.ExecuteNonQuery();
+
+                            cnn.Close();
+                        }
+                    }
+                    if (checkBoxShowOnEn.Checked)
+                    {
+                        using (cnn = new SqlConnection(DbConfig.ConnectionString))
+                        {
+                            cnn.Open();
+                            string sqlCommand = $"Update RepeatWords set ShowOnBg = 'false' Where Id = 1";
+                            cmd = new SqlCommand(sqlCommand, cnn);
+                            cmd.Parameters.AddWithValue($"@ShowOnBg", false);
+                            int rowsAffected = cmd.ExecuteNonQuery();
+
+                            string sqlCommand2 = $"Update RepeatWords set ShowOnEng = 'true' Where Id = 1";
+                            cmd = new SqlCommand(sqlCommand2, cnn);
+                            cmd.Parameters.AddWithValue($"@ShowOnEng", true);
+                            rowsAffected = cmd.ExecuteNonQuery();
+
+                            cnn.Close();
+                        }
+                    }
+                }
+                else
+                {
+                    context.Database.ExecuteSqlRaw("TRUNCATE TABLE [RepeatWords]");
+                    context.SaveChanges(true);
+                }
+            }
+            context.SaveChanges();
         }
+
 
         private void checkBoxRepeat_CheckedChanged(object sender, EventArgs e)
         {
@@ -149,7 +214,7 @@ namespace EventsOrganizer
         }
         private bool RepeatStatus()
         {
-            var repeatStatus = context.RepeatWords!.Select(r => r.Repeat ).FirstOrDefault();
+            var repeatStatus = context.RepeatWords!.Select(r => r.Repeat).FirstOrDefault();
 
             return repeatStatus;
         }

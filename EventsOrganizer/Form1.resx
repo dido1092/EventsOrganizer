@@ -138,6 +138,27 @@
   <metadata name="eventBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="eventName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="enable.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dateTimeNow.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="RemindDateTime.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="RemainingDays.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="State.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="eventBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <metadata name="notifyIconGeneral.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>177, 17</value>
   </metadata>
@@ -1949,29 +1970,29 @@
   </metadata>
   <data name="pictureBoxSound.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        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
+        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
 </value>
   </data>
   <metadata name="timerUpdateDateTimeNow.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

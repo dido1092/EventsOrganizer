@@ -39,7 +39,7 @@
             // comboBoxMin
             // 
             comboBoxMin.FormattingEnabled = true;
-            comboBoxMin.Items.AddRange(new object[] { "15", "30", "60", "90", "120", "150", "180", "240" });
+            comboBoxMin.Items.AddRange(new object[] { "15", "30", "45", "60", "90", "120", "150", "180", "240" });
             comboBoxMin.Location = new Point(45, 44);
             comboBoxMin.Name = "comboBoxMin";
             comboBoxMin.Size = new Size(77, 23);
