@@ -33,13 +33,6 @@
             textBoxEventName = new TextBox();
             buttonAddEvent = new Button();
             dataGridViewEvents = new DataGridView();
-            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            eventName = new DataGridViewTextBoxColumn();
-            enable = new DataGridViewCheckBoxColumn();
-            dateTimeNow = new DataGridViewTextBoxColumn();
-            RemindDateTime = new DataGridViewTextBoxColumn();
-            RemainingDays = new DataGridViewTextBoxColumn();
-            State = new DataGridViewTextBoxColumn();
             eventBindingSource = new BindingSource(components);
             labelEventNums = new Label();
             buttonRefresh = new Button();
@@ -58,6 +51,12 @@
             buttonRepeat = new Button();
             buttonLearnEnglish = new Button();
             timerRepeatWord = new System.Windows.Forms.Timer(components);
+            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            eventName = new DataGridViewTextBoxColumn();
+            enable = new DataGridViewCheckBoxColumn();
+            RemindDateTime = new DataGridViewTextBoxColumn();
+            RemainingDays = new DataGridViewTextBoxColumn();
+            State = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridViewEvents).BeginInit();
             ((System.ComponentModel.ISupportInitialize)eventBindingSource).BeginInit();
             contextMenuStrip1.SuspendLayout();
@@ -88,58 +87,13 @@
             dataGridViewEvents.AllowUserToAddRows = false;
             dataGridViewEvents.AutoGenerateColumns = false;
             dataGridViewEvents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewEvents.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, eventName, enable, dateTimeNow, RemindDateTime, RemainingDays, State });
+            dataGridViewEvents.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, eventName, enable, RemindDateTime, RemainingDays, State });
             dataGridViewEvents.DataSource = eventBindingSource;
             dataGridViewEvents.Location = new Point(45, 117);
             dataGridViewEvents.Name = "dataGridViewEvents";
             dataGridViewEvents.Size = new Size(883, 450);
             dataGridViewEvents.TabIndex = 2;
             dataGridViewEvents.CellContentClick += dataGridViewEvents_CellContentClick;
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            // 
-            // eventName
-            // 
-            eventName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            eventName.DataPropertyName = "eventName";
-            eventName.HeaderText = "eventName";
-            eventName.Name = "eventName";
-            // 
-            // enable
-            // 
-            enable.DataPropertyName = "enable";
-            enable.HeaderText = "enable";
-            enable.Name = "enable";
-            // 
-            // dateTimeNow
-            // 
-            dateTimeNow.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dateTimeNow.DataPropertyName = "dateTimeNow";
-            dateTimeNow.HeaderText = "dateTimeNow";
-            dateTimeNow.Name = "dateTimeNow";
-            // 
-            // RemindDateTime
-            // 
-            RemindDateTime.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            RemindDateTime.DataPropertyName = "RemindDateTime";
-            RemindDateTime.HeaderText = "RemindDateTime";
-            RemindDateTime.Name = "RemindDateTime";
-            // 
-            // RemainingDays
-            // 
-            RemainingDays.DataPropertyName = "RemainingDays";
-            RemainingDays.HeaderText = "RemainingDays";
-            RemainingDays.Name = "RemainingDays";
-            // 
-            // State
-            // 
-            State.DataPropertyName = "State";
-            State.HeaderText = "State";
-            State.Name = "State";
             // 
             // eventBindingSource
             // 
@@ -294,6 +248,44 @@
             timerRepeatWord.Interval = 1000;
             timerRepeatWord.Tick += timerRepeatWord_Tick;
             // 
+            // idDataGridViewTextBoxColumn
+            // 
+            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn.HeaderText = "Id";
+            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            // 
+            // eventName
+            // 
+            eventName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            eventName.DataPropertyName = "eventName";
+            eventName.HeaderText = "EventName";
+            eventName.Name = "eventName";
+            // 
+            // enable
+            // 
+            enable.DataPropertyName = "enable";
+            enable.HeaderText = "Enable";
+            enable.Name = "enable";
+            // 
+            // RemindDateTime
+            // 
+            RemindDateTime.DataPropertyName = "RemindDateTime";
+            RemindDateTime.HeaderText = "RemindDateTime";
+            RemindDateTime.Name = "RemindDateTime";
+            RemindDateTime.Width = 220;
+            // 
+            // RemainingDays
+            // 
+            RemainingDays.DataPropertyName = "RemainingDays";
+            RemainingDays.HeaderText = "RemainingDays";
+            RemainingDays.Name = "RemainingDays";
+            // 
+            // State
+            // 
+            State.DataPropertyName = "State";
+            State.HeaderText = "State";
+            State.Name = "State";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -349,16 +341,15 @@
         private PictureBox pictureBoxSound;
         public Label labelEventNums;
         public DataGridView dataGridViewEvents;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn eventName;
-        private DataGridViewCheckBoxColumn enable;
-        private DataGridViewTextBoxColumn dateTimeNow;
-        private DataGridViewTextBoxColumn RemindDateTime;
-        private DataGridViewTextBoxColumn RemainingDays;
-        private DataGridViewTextBoxColumn State;
         private System.Windows.Forms.Timer timerUpdateDateTimeNow;
         private Button buttonRepeat;
         private Button buttonLearnEnglish;
         private System.Windows.Forms.Timer timerRepeatWord;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn eventName;
+        private DataGridViewCheckBoxColumn enable;
+        private DataGridViewTextBoxColumn RemindDateTime;
+        private DataGridViewTextBoxColumn RemainingDays;
+        private DataGridViewTextBoxColumn State;
     }
 }

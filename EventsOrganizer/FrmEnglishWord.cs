@@ -111,8 +111,15 @@ namespace EventsOrganizer
 
             if (getCheckBoxChecked != null)
             {
-                string getWords = textBoxWord.Text.Trim().ToUpper();
-                string[] arrWords = getWords.Split(',');
+                string getWords = textBoxWord.Text.Trim().ToUpper().Replace(" ", "");
+
+                string[] arrWords = getWords.Split('-');
+
+                if (arrWords.Length != 2)
+                {
+                    MessageBox.Show("Enter word in format: word  - word");
+                    return;
+                }
 
                 DateTime dtNow = DateTime.Now;
 
@@ -128,9 +135,8 @@ namespace EventsOrganizer
 
                     foreach (var w in allSelectedWords)
                     {
-                        if (getWords == w.EnWord)
+                        if (arrWords[0] == w.EnWord && arrWords[1] == w.BgWord)
                         {
-
                             IsCorrect(w.EnWord, w.BgWord, getWords, dtNow);
                             break;
                         }
@@ -151,9 +157,8 @@ namespace EventsOrganizer
 
                     foreach (var w in allSelectedWords)
                     {
-                        if (getWords == w.BgWord)
+                        if (arrWords[0] == w.BgWord && arrWords[1] == w.EnWord)
                         {
-
                             IsCorrect(w.EnWord, w.BgWord, getWords, dtNow);
                             break;
                         }
@@ -169,7 +174,7 @@ namespace EventsOrganizer
                     }
                 }
 
-                context.SaveChanges();
+                //context.SaveChanges();
             }
         }
 
@@ -184,6 +189,7 @@ namespace EventsOrganizer
                 DateTime = dtNow
             };
             context.Add(result);
+            context.SaveChanges();
 
             MessageBox.Show("InCorrect!");
 
@@ -221,6 +227,7 @@ namespace EventsOrganizer
                 };
                 context.Add(result);
             }
+            context.SaveChanges();
 
             textBoxWord.Text = string.Empty;
 

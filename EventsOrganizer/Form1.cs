@@ -46,10 +46,7 @@ namespace EventsOrganizer
         {
             RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)!;
 
-            //if (chkStartUp.Checked)
             rk.SetValue("EventsOrganizer", Application.ExecutablePath);
-            //else
-            //rk.DeleteValue(AppName, false);
 
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

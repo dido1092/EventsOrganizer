@@ -1,14 +1,7 @@
 ﻿using EventsOrganizer.Data;
 using EventsOrganizer.Data.Common;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace EventsOrganizer
@@ -36,7 +29,7 @@ namespace EventsOrganizer
             {
                 TableResult(DbConfig.ConnectionString);
 
-                CountRows(DbConfig.ConnectionString);
+                CountRows();
             }
             catch (Exception)
             {
@@ -51,25 +44,12 @@ namespace EventsOrganizer
             da.Fill(ds, "Results");
             dataGridViewResult.DataSource = ds.Tables["Results"]?.DefaultView;
         }
-        private void CountRows(string connectionString)
+        private void CountRows()
         {
-            // Create the connection.
-            SqlConnection conn = new SqlConnection(DbConfig.ConnectionString);
+            int rows = dataGridViewResult.Rows.Count;
 
-            // Build the query to count, including CustomerID criteria if specified.
-            string selectText = "SELECT COUNT(*) FROM Results";
-
-            // Create the command to count the records.
-            SqlCommand cmd = new SqlCommand(selectText, conn);
-
-            // Execute the command, storing the results.
-            conn.Open();
-            int recordCount = (int)cmd.ExecuteScalar();
-            conn.Close();
-            //labelEventNums.Text = $"Събития бр: {recordCount}";
-            labelRows.Text = $"Rows: {recordCount}";
+            labelRows.Text = $"Rows: {rows}";
         }
-
         private void FrmResults_Load(object sender, EventArgs e)
         {
 
@@ -112,7 +92,7 @@ namespace EventsOrganizer
             cmd.Connection = cnn;
 
             SelectedDate(finalDate, DbConfig.ConnectionString);
-
+            CountRows();
         }
         private void SelectedDate(string date, string connectionString)
         {

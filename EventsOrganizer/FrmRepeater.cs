@@ -50,33 +50,47 @@ namespace EventsOrganizer
 
             if (checkId)
             {
-                DateTime newDateTime = DateTime.Now;
+                var getEvent = context.Events!.Select(e => new { e.Id, e.remindDateTime }).Where(e => e.Id == id);
 
-                if (checkYears)
-                {
-                    newDateTime = newDateTime.AddYears(years);
-                }
-                if (checkMonths)
-                {
-                    newDateTime = newDateTime.AddMonths(months);
-                }
-                if (checkDays)
-                {
-                    newDateTime = newDateTime.AddDays(days);
-                }
-                if (checkHours)
-                {
-                    newDateTime = newDateTime.AddHours(hours);
-                }
-                if (checkMin)
-                {
-                    newDateTime = newDateTime.AddMinutes(minutes);
-                }
+                DateTime newDateTime = new DateTime();
 
-                SetEnbleToTrue(id, newDateTime);
+                foreach (var ev in getEvent)
+                {
+                    newDateTime = ev.remindDateTime;
+
+                    if (checkYears)
+                    {
+                        newDateTime = newDateTime.AddYears(years);
+
+                        SetEnbleToTrue(id, newDateTime);
+                    }
+                    if (checkMonths)
+                    {
+                        newDateTime = newDateTime.AddMonths(months);
+
+                        SetEnbleToTrue(id, newDateTime);
+                    }
+                    if (checkDays)
+                    {
+                        newDateTime = newDateTime.AddDays(days);
+
+                        SetEnbleToTrue(id, newDateTime);
+                    }
+                    if (checkHours)
+                    {
+                        newDateTime = newDateTime.AddHours(hours);
+
+                        SetEnbleToTrue(id, newDateTime);
+                    }
+                    if (checkMin)
+                    {
+                        newDateTime = newDateTime.AddMinutes(minutes);
+
+                        SetEnbleToTrue(id, newDateTime);
+                    }
+                }
+                MessageBox.Show("Information Updated", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
-
         }
         private void SetEnbleToTrue(int id, DateTime remindDateTime)
         {
@@ -97,8 +111,7 @@ namespace EventsOrganizer
 
             if (rowsAffected == 1)
             {
-                MessageBox.Show("Information Updated", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                //MessageBox.Show("Information Updated", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             cnn.Close();
         }
@@ -116,7 +129,7 @@ namespace EventsOrganizer
             {
                 foreach (var id in getIds)
                 {
-                    comboBoxIds.Items.Add(id);
+                   comboBoxIds.Items.Add(id);
                 }
             }
         }
